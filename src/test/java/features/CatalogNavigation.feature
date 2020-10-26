@@ -62,3 +62,17 @@ Feature: Catalog Navigation
     When I open 'Drama' subcategory
     Then Subcategory screen is present
       And Subcategory name is 'Drama'
+
+  @tier1
+  Scenario: Filter books
+    When I open 'LYRASIS' library
+    Then Library is loaded
+    When I filter books by 'eBooks' format
+    Then Books feed is loaded
+      And All present books are ebooks
+    When I filter books by 'Audiobooks' format
+    Then Books feed is loaded
+      And All present books are audiobooks
+    When I get names of books on screen and save them as 'listOfBooksOnMainPage'
+      And I filter books by 'All' format
+    Then List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
