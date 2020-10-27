@@ -32,4 +32,8 @@ public class HeaderPage extends Form {
     public boolean isSignOutBtnVisible() {
         return signOutBtn.state().waitForDisplayed();
     }
+
+    public void openBreadcrumb(String breadcrumbItemName) {
+        getElementFactory().getButton(By.xpath(String.format(BREADCRUMB_XPATH_PATTERN, breadcrumbItemName)), "Breadcrumb - " + breadcrumbItemName).click();
+    }
 }

@@ -32,7 +32,7 @@ Feature: Catalog Navigation
         | Travel                      |
         | True Crime                  |
         | All Nonfiction              |
-    And List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
+      And List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
     When I return to previous screen
       And I open 'Fiction' category
     Then Current category name is 'Fiction'
@@ -81,7 +81,7 @@ Feature: Catalog Navigation
   Scenario: Browse Lanes/Categories
     When I open 'LYRASIS' library
     Then Library is loaded
-    Then Books feed is loaded
+      And Books feed is loaded
     When I open 'Fiction' category
     Then Current category name is 'Fiction'
       And Count of books in first lane is up to 15
@@ -111,3 +111,21 @@ Feature: Catalog Navigation
       And Subcategory name is 'Adventure'
     When I open first book in subcategory list and save it as 'bookInfo'
     Then Book 'bookInfo' is opened
+
+  @tier1
+  Scenario: Navigate Links
+    When I open 'LYRASIS' library
+    Then Library is loaded
+      And Books feed is loaded
+    When I open 'Fiction' category
+    Then Current category name is 'Fiction'
+    When I open 'Adventure' subcategory
+    Then Subcategory screen is present
+      And Subcategory name is 'Adventure'
+      And I open 'Fiction' item from breadcrumbs
+    Then Current category name is 'Fiction'
+    When I open 'Drama' subcategory
+    Then Subcategory screen is present
+      And Subcategory name is 'Drama'
+      And I return to previous screen
+      And Current category name is 'Fiction'

@@ -2,6 +2,7 @@ package stepdefinitions;
 
 import framework.configuration.Configuration;
 import framework.configuration.Credentials;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
@@ -24,5 +25,10 @@ public class HeaderSteps {
     @Then("Login is performed successfully")
     public void checkThatLoginIsPerformedSuccessfully() {
         Assert.assertTrue(headerPage.isSignOutBtnVisible(), "Login was not performed successfully");
+    }
+
+    @And("I open {string} item from breadcrumbs")
+    public void openItemFromBreadcrumbs(String breadcrumbItemName) {
+        headerPage.openBreadcrumb(breadcrumbItemName);
     }
 }
