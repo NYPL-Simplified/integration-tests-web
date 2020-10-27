@@ -76,4 +76,9 @@ public class CatalogSteps {
     public void checkSubcategoryNameIsCorrect(String subcategoryName) {
         Assert.assertEquals(subcategoryPage.getSubcategoryName(), subcategoryName, "Subcategory name is not correct");
     }
+
+    @When("I open random book page")
+    public void openRandomBookPage() {
+        catalogPage.clickRandomVisibleBookCover();
+    }
 }
