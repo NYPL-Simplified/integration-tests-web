@@ -96,4 +96,9 @@ public class CatalogSteps {
         Assert.assertTrue(catalogPage.getBooksType().stream().allMatch(x -> x.contains(bookFormat)),
                 "Not all present books are " + bookFormat + "s");
     }
+
+    @When("I open random book page")
+    public void openRandomBookPage() {
+        catalogPage.clickRandomVisibleBookCover();
+    }
 }
