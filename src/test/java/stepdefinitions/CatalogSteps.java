@@ -108,4 +108,9 @@ public class CatalogSteps {
         Assert.assertTrue(countOfBooks >= actualBooksCount,
                 String.format("Count of books is bigger then %d. Actual count - %d", countOfBooks, actualBooksCount));
     }
+
+    @When("I open first book in subcategory list and save it as {string}")
+    public void openFirstBookInSubcategoryList(String bookInfoKey) {
+        context.add(bookInfoKey, subcategoryPage.openFirstBook());
+    }
 }

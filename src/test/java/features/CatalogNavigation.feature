@@ -82,32 +82,32 @@ Feature: Catalog Navigation
     When I open 'LYRASIS' library
     Then Library is loaded
     Then Books feed is loaded
-      And Count of books in first lane is up to 15
     When I open 'Fiction' category
     Then Current category name is 'Fiction'
+      And Count of books in first lane is up to 15
       And Following subcategories are present:
-        | gardening fun      |
-        | Classics           |
-        | Drama              |
-        | Adventure          |
-        | Jane Austen        |
-        | Fantasy            |
-        | Folklore           |
-        | Historical Fiction |
-        | Horror             |
-        | Humor              |
-        | Literary Fiction   |
-        | Mystery            |
-        | Poetry             |
-        | Romance            |
-        | Science Fiction    |
-        | Short Stories      |
-        | Thriller           |
-        | Westerns           |
-        | Women's Fiction    |
-        | All Fiction        |
-    When I open 'Drama' subcategory
+          | gardening fun      |
+          | Classics           |
+          | Drama              |
+          | Adventure          |
+          | Jane Austen        |
+          | Fantasy            |
+          | Folklore           |
+          | Historical Fiction |
+          | Horror             |
+          | Humor              |
+          | Literary Fiction   |
+          | Mystery            |
+          | Poetry             |
+          | Romance            |
+          | Science Fiction    |
+          | Short Stories      |
+          | Thriller           |
+          | Westerns           |
+          | Women's Fiction    |
+          | All Fiction        |
+    When I open 'Adventure' subcategory
     Then Subcategory screen is present
-      And Subcategory name is 'Drama'
+      And Subcategory name is 'Adventure'
     When I open first book in subcategory list and save it as 'bookInfo'
     Then Book 'bookInfo' is opened
