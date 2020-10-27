@@ -20,6 +20,8 @@ public class CatalogPage extends Form {
     private List<IElement> listOfBookFormats =
             getElementFactory().findElements(By.xpath("//div[@role='img' and contains(@aria-label,'Cover of book:')]/div//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), ElementType.LABEL);
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
+    private List<IElement> namesOfBooksInFirstLane =
+            getElementFactory().findElements(By.xpath("(//ul[@data-testid])[1]//h3"), ElementType.LABEL);
 
 
     public CatalogPage() {
@@ -58,5 +60,13 @@ public class CatalogPage extends Form {
     public void clickRandomVisibleBookCover() {
         List<IElement> bookCovers = getBooksCovers();
         bookCovers.get(RandomUtils.nextInt(0, bookCovers.size())).click();
+    }
+
+    public List<String> getListOfAllBooksNamesInFirstLane() {
+        return getValuesFromListOfLabels(namesOfBooksInFirstLane);
+    }
+
+    private List<String> getValuesFromListOfLabels(List<IElement> elements) {
+        return elements.stream().map(IElement::getText).collect(Collectors.toList());
     }
 }

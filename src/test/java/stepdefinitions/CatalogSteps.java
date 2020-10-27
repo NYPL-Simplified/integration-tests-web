@@ -101,4 +101,11 @@ public class CatalogSteps {
     public void openRandomBookPage() {
         catalogPage.clickRandomVisibleBookCover();
     }
+
+    @And("Count of books in first lane is up to {int}")
+    public void countOfBooksInFirstLaneIsUpTo(int countOfBooks) {
+        int actualBooksCount = catalogPage.getListOfAllBooksNamesInFirstLane().size();
+        Assert.assertTrue(countOfBooks >= actualBooksCount,
+                String.format("Count of books is bigger then %d. Actual count - %d", countOfBooks, actualBooksCount));
+    }
 }
