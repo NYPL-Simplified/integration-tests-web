@@ -64,7 +64,7 @@ public class CatalogSteps {
     public void checkListOfBooksOnScreenIsNotEqualToSavedList(String booksNamesListKey) {
         List<String> expectedList = context.get(booksNamesListKey);
         Assert.assertNotEquals(catalogPage.getBooksNames(), expectedList,
-                "Lists of books are equal" + expectedList.stream().map(Object::toString).collect(Collectors.joining(", ")));
+                "Lists of books are equal " + expectedList.stream().map(Object::toString).collect(Collectors.joining(", ")));
     }
 
     @Then("Subcategory screen is present")
@@ -75,6 +75,26 @@ public class CatalogSteps {
     @And("Subcategory name is {string}")
     public void checkSubcategoryNameIsCorrect(String subcategoryName) {
         Assert.assertEquals(subcategoryPage.getSubcategoryName(), subcategoryName, "Subcategory name is not correct");
+    }
+
+    @When("I filter books by {string} format")
+    public void filterBooksByFormat(String format) {
+        subcategoryPage.sortByFormat(format);
+    }
+
+    @And("All present books are audiobooks")
+    public void checkAllPresentBooksAreAudiobooks() {
+        checkAllBooksTypeIs("audiobook");
+    }
+
+    @And("All present books are ebooks")
+    public void checkAllPresentBooksAreEbooks() {
+        checkAllBooksTypeIs("eBook");
+    }
+
+    private void checkAllBooksTypeIs(String bookFormat) {
+        Assert.assertTrue(catalogPage.getBooksType().stream().allMatch(x -> x.contains(bookFormat)),
+                "Not all present books are " + bookFormat + "s");
     }
 
     @When("I open random book page")

@@ -15,7 +15,10 @@ public class CatalogPage extends Form {
     public static final String OPEN_CATEGORY_BUTTON_XPATH_PATTERN = "//h2[contains(text(),'%s')]//following-sibling::a";
     public static final String SUBCATEGORY_LABEL_XPATH_PATTERN = "//h2[contains(text(),\"%s\")]";
     public static final String BOOKS_COVERS = "//img[contains(@alt, 'Cover of book')]";
+    public static final String ARIA_LABEL_ATTRIBUTE = "aria-label";
     private List<IElement> listOfBookNames = getElementFactory().findElements(By.xpath("//h3"), ElementType.LABEL);
+    private List<IElement> listOfBookFormats =
+            getElementFactory().findElements(By.xpath("//div[@role='img' and contains(@aria-label,'Cover of book:')]/div//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), ElementType.LABEL);
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
 
 
@@ -46,6 +49,10 @@ public class CatalogPage extends Form {
 
     public boolean isSubcategoryPresent(String subcategoryName) {
         return getElementFactory().getButton(By.xpath(String.format(SUBCATEGORY_LABEL_XPATH_PATTERN, subcategoryName)), subcategoryName).state().isDisplayed();
+    }
+
+    public List<String> getBooksType() {
+        return listOfBookFormats.stream().map(element -> element.getAttribute(ARIA_LABEL_ATTRIBUTE)).collect(Collectors.toList());
     }
 
     public void clickRandomVisibleBookCover() {
