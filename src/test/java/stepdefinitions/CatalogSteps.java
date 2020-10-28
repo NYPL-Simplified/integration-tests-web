@@ -9,6 +9,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pages.CatalogPage;
+import pages.SearchResultPage;
 import pages.SubcategoryPage;
 
 import java.util.HashMap;
@@ -21,11 +22,13 @@ public class CatalogSteps {
     private ScenarioContext context;
     private final CatalogPage catalogPage = new CatalogPage();
     private final SubcategoryPage subcategoryPage = new SubcategoryPage();
+    private final SearchResultPage searchResultPage = new SearchResultPage();
 
     @Inject
     public CatalogSteps(ScenarioContext context) {
         this.context = context;
         libraryLinks.put("lyrasis", "lyrasis");
+        libraryLinks.put("howard county library system", "howard");
     }
 
     @And("I open {string} library")
@@ -41,7 +44,7 @@ public class CatalogSteps {
 
     @When("I get names of books on screen and save them as {string}")
     public void saveNamesOfBooksOnScreen(String listOfBooksKey) {
-        context.add(listOfBooksKey, catalogPage.getBooksNames());
+        context.add(listOfBooksKey, catalogPage.getBooksTitles());
     }
 
     @And("I open {string} category")
@@ -63,7 +66,7 @@ public class CatalogSteps {
     @And("List of books on screen is not equal to list of books saved as {string}")
     public void checkListOfBooksOnScreenIsNotEqualToSavedList(String booksNamesListKey) {
         List<String> expectedList = context.get(booksNamesListKey);
-        Assert.assertNotEquals(catalogPage.getBooksNames(), expectedList,
+        Assert.assertNotEquals(catalogPage.getBooksTitles(), expectedList,
                 "Lists of books are equal " + expectedList.stream().map(Object::toString).collect(Collectors.joining(", ")));
     }
 
@@ -93,7 +96,7 @@ public class CatalogSteps {
     }
 
     private void checkAllBooksTypeIs(String bookFormat) {
-        Assert.assertTrue(catalogPage.getBooksType().stream().allMatch(x -> x.contains(bookFormat)),
+        Assert.assertTrue(catalogPage.getBooksType().stream().allMatch(x -> x.toLowerCase().contains(bookFormat.toLowerCase())),
                 "Not all present books are " + bookFormat + "s");
     }
 
@@ -112,5 +115,27 @@ public class CatalogSteps {
     @When("I open first book in subcategory list and save it as {string}")
     public void openFirstBookInSubcategoryList(String bookInfoKey) {
         context.add(bookInfoKey, subcategoryPage.openFirstBook());
+    }
+
+    @When("I switch to {string} book type in search result")
+    public void switchToCatalogTab(String bookType) {
+        searchResultPage.selectBookType(bookType);
+    }
+
+    @And("I open first book with {string} status")
+    public void openFirstBookWithGivenStatus(String bookStatus) {
+        searchResultPage.openBookWithStatus(bookStatus);
+    }
+
+    @And("Title of all present books contains {string}")
+    public void checkTitleOfAllPresentBooksContains(String titlePart) {
+        Assert.assertTrue(subcategoryPage.getBookTitles().stream().allMatch(x -> x.toLowerCase().contains(titlePart.toLowerCase())),
+                "Not all present books titles contain '" + titlePart + "'");
+    }
+
+    @And("Author of all present books is {string}")
+    public void checkAuthorOfAllPresentBooksIs(String authorName) {
+        Assert.assertTrue(subcategoryPage.getAuthors().stream().allMatch(x -> x.toLowerCase().contains(authorName.toLowerCase())),
+                "Not all present books authors contain '" + authorName + "'");
     }
 }

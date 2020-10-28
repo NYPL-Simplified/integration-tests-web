@@ -81,7 +81,6 @@ Feature: Catalog Navigation
   Scenario: Browse Lanes/Categories
     When I open 'LYRASIS' library
     Then Library is loaded
-      And Books feed is loaded
     When I open 'Fiction' category
     Then Current category name is 'Fiction'
       And Count of books in first lane is up to 15
@@ -116,7 +115,6 @@ Feature: Catalog Navigation
   Scenario: Navigate Links
     When I open 'LYRASIS' library
     Then Library is loaded
-      And Books feed is loaded
     When I open 'Fiction' category
     Then Current category name is 'Fiction'
     When I open 'Adventure' subcategory
@@ -129,3 +127,31 @@ Feature: Catalog Navigation
       And Subcategory name is 'Drama'
       And I return to previous screen
       And Current category name is 'Fiction'
+
+  @tier1
+  Scenario: View Book Details
+    When I open 'Howard County Library System' library
+    Then Library is loaded
+    When I search for 'Harry Potter and the Goblet of Fire' book
+    When I switch to 'eBooks' book type in search result
+    And I open first book with 'Unavailable' status
+    Then Books info screen is present
+    And The following values in the information block are present:
+      | key        | value                          |
+      | published  | December 8, 2015               |
+      | publisher  | Pottermore Publishing          |
+      | categories | Children, 18, Fiction, Fantasy |
+    And Description has text
+    """
+    "'There will be three tasks, spaced throughout the school year, and they will test the champions in many different ways ... their magical prowess - their daring - their powers of deduction - and, of course, their ability to cope with danger.'"
+The Triwizard Tournament is to be held at Hogwarts. Only wizards who are over seventeen are allowed to enter - but that doesn't stop Harry dreaming that he will win the competition. Then at Hallowe'en, when the Goblet of Fire makes its selection, Harry is amazed to find his name is one of those that the magical cup picks out. He will face death-defying tasks, dragons and Dark wizards, but with the help of his best friends, Ron and Hermione, he might just make it through - alive!
+    """
+    And Count of books in subcategory 'J. K. Rowling' lane is up to 17
+    When I open 'J. K. Rowling' recommendation subcategory on book page
+    Then Subcategory name is 'J. K. Rowling'
+    And Author of all present books is 'J. K. Rowling'
+    When I return to previous screen
+    And Count of books in subcategory 'Harry Potter' lane is up to 17
+    When I open 'Harry Potter' recommendation subcategory on book page
+    Then Subcategory name is 'Harry Potter'
+    And Title of all present books contains 'Harry Potter'

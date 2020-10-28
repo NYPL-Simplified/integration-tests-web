@@ -1,12 +1,17 @@
 package pages;
 
+import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.IComboBox;
+import aquality.selenium.elements.interfaces.IElement;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
 import constants.pages.ElementAttributesConstants;
 import models.BookInfo;
 import org.openqa.selenium.By;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SubcategoryPage extends Form {
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
@@ -15,6 +20,9 @@ public class SubcategoryPage extends Form {
     private ILabel lblFirstBookAuthor = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//span[.//*[name()='svg']]//preceding-sibling::span[1]"), "First book author");
     private ILabel lblFirstBookFormat = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), "First book format");
     private IButton btnViewFirstBookDetails = getElementFactory().getButton(By.xpath("//div[@class='card__ctas']//a"), "View first book details");
+    private List<IElement> listOfBookNames = getElementFactory().findElements(By.xpath("//li//h2"), ElementType.LABEL);
+    private List<IElement> listOfBookAuthors =
+            getElementFactory().findElements(By.xpath("//span[@aria-label='Authors']"), ElementType.LABEL);
 
     public SubcategoryPage() {
         super(By.id("facet-selector-Sort by"), "Subcategory");
@@ -35,5 +43,17 @@ public class SubcategoryPage extends Form {
         bookInfo.setTitle(lblFirstBookTitle.getText());
         btnViewFirstBookDetails.click();
         return bookInfo;
+    }
+
+    public List<String> getBookTitles() {
+        return getListOfTextValues(listOfBookNames);
+    }
+
+    public List<String> getAuthors() {
+        return getListOfTextValues(listOfBookAuthors);
+    }
+
+    private List<String> getListOfTextValues(List<IElement> list) {
+        return list.stream().map(IElement::getText).collect(Collectors.toList());
     }
 }

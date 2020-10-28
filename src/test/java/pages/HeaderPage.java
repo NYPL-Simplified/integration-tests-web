@@ -1,6 +1,7 @@
 package pages;
 
 import aquality.selenium.elements.interfaces.IButton;
+import aquality.selenium.elements.interfaces.ITextBox;
 import aquality.selenium.forms.Form;
 import constants.pages.HeaderPageConstants;
 import org.openqa.selenium.By;
@@ -13,6 +14,8 @@ public class HeaderPage extends Form {
             By.xpath(String.format(LOGIN_LOGOUT_BTN_LOC, HeaderPageConstants.SIGN_IN)), HeaderPageConstants.SIGN_IN);
     private final IButton signOutBtn = getElementFactory().getButton(
             By.xpath(String.format(LOGIN_LOGOUT_BTN_LOC, HeaderPageConstants.SIGN_OUT)), HeaderPageConstants.SIGN_OUT);
+    private final IButton btnSearch = getElementFactory().getButton(By.xpath("//form[@role='search']/button"), "Search");
+    private final ITextBox txbSearchItem = getElementFactory().getTextBox(By.id("search-bar"), "Search bar");
 
     public HeaderPage() {
         super(By.xpath("//header"), "Header page");
@@ -36,5 +39,10 @@ public class HeaderPage extends Form {
 
     public void openBreadcrumb(String breadcrumbItemName) {
         getElementFactory().getButton(By.xpath(String.format(BREADCRUMB_XPATH_PATTERN, breadcrumbItemName)), "Breadcrumb - " + breadcrumbItemName).click();
+    }
+
+    public void searchFor(String searchItem) {
+        txbSearchItem.clearAndType(searchItem);
+        btnSearch.click();
     }
 }

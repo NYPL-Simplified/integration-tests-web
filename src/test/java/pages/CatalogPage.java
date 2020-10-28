@@ -37,7 +37,7 @@ public class CatalogPage extends Form {
                 .collect(Collectors.toList());
     }
 
-    public List<String> getBooksNames() {
+    public List<String> getBooksTitles() {
         return listOfBookNames.stream().map(IElement::getText).collect(Collectors.toList());
     }
 

@@ -7,11 +7,13 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pages.HeaderPage;
+import pages.SearchResultPage;
 import pages.SingInModal;
 
 public class HeaderSteps {
     private final HeaderPage headerPage = new HeaderPage();
     private final SingInModal singInModal = new SingInModal();
+    private final SearchResultPage searchResultPage = new SearchResultPage();
 
     @When("I login to the {string}")
     public void login(String libraryName) {
@@ -30,5 +32,11 @@ public class HeaderSteps {
     @And("I open {string} item from breadcrumbs")
     public void openItemFromBreadcrumbs(String breadcrumbItemName) {
         headerPage.openBreadcrumb(breadcrumbItemName);
+    }
+
+    @When("I search for {string} book")
+    public void searchForBook(String searchItem) {
+        headerPage.searchFor(searchItem);
+        searchResultPage.state().waitForDisplayed();
     }
 }
