@@ -101,4 +101,16 @@ public class CatalogSteps {
     public void openRandomBookPage() {
         catalogPage.clickRandomVisibleBookCover();
     }
+
+    @And("Count of books in first lane is up to {int}")
+    public void countOfBooksInFirstLaneIsUpTo(int countOfBooks) {
+        int actualBooksCount = catalogPage.getListOfAllBooksNamesInFirstLane().size();
+        Assert.assertTrue(countOfBooks >= actualBooksCount,
+                String.format("Count of books is bigger then %d. Actual count - %d", countOfBooks, actualBooksCount));
+    }
+
+    @When("I open first book in subcategory list and save it as {string}")
+    public void openFirstBookInSubcategoryList(String bookInfoKey) {
+        context.add(bookInfoKey, subcategoryPage.openFirstBook());
+    }
 }

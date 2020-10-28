@@ -76,3 +76,38 @@ Feature: Catalog Navigation
     When I get names of books on screen and save them as 'listOfBooksOnMainPage'
       And I filter books by 'All' format
     Then List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
+
+  @tier1
+  Scenario: Browse Lanes/Categories
+    When I open 'LYRASIS' library
+    Then Library is loaded
+    Then Books feed is loaded
+    When I open 'Fiction' category
+    Then Current category name is 'Fiction'
+      And Count of books in first lane is up to 15
+      And Following subcategories are present:
+          | gardening fun      |
+          | Classics           |
+          | Drama              |
+          | Adventure          |
+          | Jane Austen        |
+          | Fantasy            |
+          | Folklore           |
+          | Historical Fiction |
+          | Horror             |
+          | Humor              |
+          | Literary Fiction   |
+          | Mystery            |
+          | Poetry             |
+          | Romance            |
+          | Science Fiction    |
+          | Short Stories      |
+          | Thriller           |
+          | Westerns           |
+          | Women's Fiction    |
+          | All Fiction        |
+    When I open 'Adventure' subcategory
+    Then Subcategory screen is present
+      And Subcategory name is 'Adventure'
+    When I open first book in subcategory list and save it as 'bookInfo'
+    Then Book 'bookInfo' is opened
