@@ -17,7 +17,7 @@ public class SubcategoryPage extends Form {
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
     private IComboBox cmbSortByFormat = getElementFactory().getComboBox(By.id("facet-selector-Formats"), "Sort by format");
     private ILabel lblFirstBookTitle = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//h2"), "First book title");
-    private ILabel lblFirstBookAuthor = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//span[.//*[name()='svg']]//preceding-sibling::span[1]"), "First book author");
+    private ILabel lblFirstBookAuthor = getElementFactory().getLabel(By.xpath("//span[@aria-label='Authors']"), "First book author");
     private ILabel lblFirstBookFormat = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), "First book format");
     private IButton btnViewFirstBookDetails = getElementFactory().getButton(By.xpath("//div[@class='card__ctas']//a"), "View first book details");
     private List<IElement> listOfBookNames = getElementFactory().findElements(By.xpath("//li//h2"), ElementType.LABEL);

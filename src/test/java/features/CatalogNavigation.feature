@@ -5,59 +5,35 @@ Feature: Catalog Navigation
     When I open 'LYRASIS' library
     Then Library is loaded
     When I get names of books on screen and save them as 'listOfBooksOnMainPage'
-      And I open 'Nonfiction' category
-    Then Current category name is 'Nonfiction'
+      And I open 'Young Adult Fiction' category
+    Then Current category name is 'Young Adult Fiction'
       And Books feed is loaded
       And Following subcategories are present:
-        | Gardening                   |
-        | Art & Design                |
-        | Biography & Memoir          |
-        | Education                   |
-        | Personal Finance & Business |
-        | Parenting & Family          |
-        | Food & Health               |
-        | History                     |
-        | Hobbies & Home              |
-        | Humor                       |
-        | Entertainment               |
-        | Life Strategies             |
-        | Literary Criticism          |
-        | Philosophy                  |
-        | Politics & Current Events   |
-        | Reference & Study Aids      |
-        | Religion & Spirituality     |
-        | Science & Technology        |
-        | Self-Help                   |
-        | Sports                      |
-        | Travel                      |
-        | True Crime                  |
-        | All Nonfiction              |
+        | Fantasy                 |
+        | Contemporary Fiction    |
+        | Mystery & Thriller      |
+        | Romance                 |
+        | Science Fiction         |
+        | All Young Adult Fiction |
       And List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
     When I return to previous screen
-      And I open 'Fiction' category
-    Then Current category name is 'Fiction'
+      And I open 'Children and Middle Grade' category
+    Then Current category name is 'Children and Middle Grade'
       And Books feed is loaded
       And Following subcategories are present:
-        | gardening fun      |
-        | Classics           |
-        | Drama              |
-        | Adventure          |
-        | Jane Austen        |
-        | Fantasy            |
-        | Folklore           |
-        | Historical Fiction |
-        | Horror             |
-        | Humor              |
-        | Literary Fiction   |
-        | Mystery            |
-        | Poetry             |
-        | Romance            |
-        | Science Fiction    |
-        | Short Stories      |
-        | Thriller           |
-        | Westerns           |
-        | Women's Fiction    |
-        | All Fiction        |
+        | Picture Books                 |
+        | Easy Readers                  |
+        | Chapter Books                 |
+        | Poetry Books                  |
+        | Folklore                      |
+        | Fantasy                       |
+        | Science Fiction               |
+        | Realistic Fiction             |
+        | Comics & Graphic Novels       |
+        | Biography                     |
+        | Historical Fiction            |
+        | Informational Books           |
+        | All Children and Middle Grade |
       And List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
     When I open 'Drama' subcategory
     Then Subcategory screen is present
@@ -133,7 +109,6 @@ Feature: Catalog Navigation
     When I open 'Howard County Library System' library
     Then Library is loaded
     When I search for 'Harry Potter and the Goblet of Fire' book
-    When I switch to 'eBooks' book type in search result
     And I open first book with 'Unavailable' status
     Then Books info screen is present
     And The following values in the information block are present:

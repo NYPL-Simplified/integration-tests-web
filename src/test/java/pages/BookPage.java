@@ -19,8 +19,8 @@ public class BookPage extends Form {
     private static final String CATEGORIES_INFO_KEY = "Categories";
     private static final String PUBLISHED_INFO_KEY = "Published";
 
-    private final IButton btnBorrowBook = getElementFactory().getButton(
-            By.xpath("//button[./span[text()='Borrow']]"), "Borrow book");
+    private final IButton btnBorrowBook =
+            getElementFactory().getButton(By.xpath("//button[contains(text(),'Borrow')]"), "Borrow book");
     private final IButton downloadBtn = getElementFactory().getButton(
             By.xpath("//button[text()='Download Adobe EPUB']"), "Download book button");
     private final ILabel lblTitle = getElementFactory().getLabel(By.xpath("//h1"), "Title");
