@@ -1,15 +1,20 @@
 {
   "environment": "beta",
   "browserName": "chrome",
-  "isRemote": false,
-  "remoteConnectionUrl": "http://localhost:4444/wd/hub",
+  "isRemote": true,
+  "remoteConnectionUrl": "",
   "isElementHighlightEnabled": false,
-
   "driverSettings": {
     "chrome": {
       "webDriverVersion": "latest",
       "capabilities": {
-        "enableVNC": true
+        "browserName": "Chrome",
+        "browserVersion": "latest-beta",
+        "os": "Windows",
+        "osVersion": "10",
+        "resolution": "1920x1080",
+        "local": "false",
+        "seleniumVersion": "3.14.0"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -20,7 +25,6 @@
         "download.default_directory": "//home//selenium//downloads"
       },
       "startArguments": [
-        "window-size=1920,1080",
         "--no-sandbox",
         "--disable-popup-blocking",
         "--disable-gpu"
@@ -29,7 +33,12 @@
     "firefox": {
       "webDriverVersion": "latest",
       "capabilities": {
-        "enableVNC": true
+        "browserName": "Firefox",
+        "browserVersion": "latest-beta",
+        "os": "Windows",
+        "osVersion": "10",
+        "resolution": "1920x1080",
+        "seleniumVersion": "3.5.2"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -48,15 +57,15 @@
       },
       "startArguments": []
     },
-    "iexplorer": {
-      "webDriverVersion": "latest",
-      "systemArchitecture": "X32",
-      "capabilities": {
-        "ignoreProtectedModeSettings": true
-      }
-    },
     "safari": {
-      "downloadDir": "/Users/username/Downloads"
+      "capabilities": {
+        "browserName": "Safari",
+        "browserVersion": "13.1",
+        "os": "OS X",
+        "osVersion": "Catalina",
+        "resolution": "1920x1080",
+        "seleniumVersion": "3.14.0"
+      }
     }
   },
   "timeouts": {
