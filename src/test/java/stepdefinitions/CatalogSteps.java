@@ -18,6 +18,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CatalogSteps {
+    private final CatalogPage catalogPage = new CatalogPage();
+    private final SubcategoryPage subcategoryPage = new SubcategoryPage();
+    private final SearchResultPage searchResultPage = new SearchResultPage();
     private Map<String, String> libraryLinks = new HashMap<>();
     private ScenarioContext context;
 
@@ -36,50 +39,50 @@ public class CatalogSteps {
     @Then("Library is loaded")
     @And("Books feed is loaded")
     public void checkBooksFeedIsLoaded() {
-        Assert.assertTrue(new CatalogPage().state().waitForDisplayed(), "Books feed is not loaded");
+        Assert.assertTrue(catalogPage.state().waitForDisplayed(), "Books feed is not loaded");
     }
 
     @When("I get names of books on screen and save them as {string}")
     public void saveNamesOfBooksOnScreen(String listOfBooksKey) {
-        context.add(listOfBooksKey, new CatalogPage().getBooksTitles());
+        context.add(listOfBooksKey, catalogPage.getBooksTitles());
     }
 
     @And("I open {string} category")
     @When("I open {string} subcategory")
     public void openCategory(String categoryName) {
-        new CatalogPage().openCategory(categoryName);
+        catalogPage.openCategory(categoryName);
     }
 
     @Then("Current category name is {string}")
     public void checkCurrentCategoryNameIsCorrect(String categoryName) {
-        Assert.assertEquals(new CatalogPage().getCategoryName(), categoryName, "Category name is not correct");
+        Assert.assertEquals(catalogPage.getCategoryName(), categoryName, "Category name is not correct");
     }
 
     @And("Following subcategories are present:")
     public void checkFollowingSubcategoriesArePresent(List<String> expectedValuesList) {
-        Assert.assertTrue(expectedValuesList.stream().allMatch(new CatalogPage()::isSubcategoryPresent), "Not all categories are present");
+        Assert.assertTrue(expectedValuesList.stream().allMatch(catalogPage::isSubcategoryPresent), "Not all categories are present");
     }
 
     @And("List of books on screen is not equal to list of books saved as {string}")
     public void checkListOfBooksOnScreenIsNotEqualToSavedList(String booksNamesListKey) {
         List<String> expectedList = context.get(booksNamesListKey);
-        Assert.assertNotEquals(new CatalogPage().getBooksTitles(), expectedList,
+        Assert.assertNotEquals(catalogPage.getBooksTitles(), expectedList,
                 "Lists of books are equal " + expectedList.stream().map(Object::toString).collect(Collectors.joining(", ")));
     }
 
     @Then("Subcategory screen is present")
     public void checkSubcategoryScreenIsPresent() {
-        Assert.assertTrue(new SubcategoryPage().state().waitForDisplayed(), "Subcategory screen is not present");
+        Assert.assertTrue(subcategoryPage.state().waitForDisplayed(), "Subcategory screen is not present");
     }
 
     @And("Subcategory name is {string}")
     public void checkSubcategoryNameIsCorrect(String subcategoryName) {
-        Assert.assertEquals(new SubcategoryPage().getSubcategoryName(), subcategoryName, "Subcategory name is not correct");
+        Assert.assertEquals(subcategoryPage.getSubcategoryName(), subcategoryName, "Subcategory name is not correct");
     }
 
     @When("I filter books by {string} format")
     public void filterBooksByFormat(String format) {
-        new SubcategoryPage().sortByFormat(format);
+        subcategoryPage.sortByFormat(format);
     }
 
     @And("All present books are audiobooks")
@@ -93,46 +96,47 @@ public class CatalogSteps {
     }
 
     private void checkAllBooksTypeIs(String bookFormat) {
-        Assert.assertTrue(new CatalogPage().getBooksType().stream().allMatch(x -> x.toLowerCase().contains(bookFormat.toLowerCase())),
+        Assert.assertTrue(catalogPage.getBooksType().size() > 0, "List of books is empty");
+        Assert.assertTrue(catalogPage.getBooksType().stream().allMatch(x -> x.toLowerCase().contains(bookFormat.toLowerCase())),
                 "Not all present books are " + bookFormat + "s");
     }
 
     @When("I open random book page")
     public void openRandomBookPage() {
-        new CatalogPage().clickRandomVisibleBookCover();
+        catalogPage.clickRandomVisibleBookCover();
     }
 
     @And("Count of books in first lane is up to {int}")
     public void countOfBooksInFirstLaneIsUpTo(int countOfBooks) {
-        int actualBooksCount = new CatalogPage().getListOfAllBooksNamesInFirstLane().size();
+        int actualBooksCount = catalogPage.getListOfAllBooksNamesInFirstLane().size();
         Assert.assertTrue(countOfBooks >= actualBooksCount,
                 String.format("Count of books is bigger then %d. Actual count - %d", countOfBooks, actualBooksCount));
     }
 
     @When("I open first book in subcategory list and save it as {string}")
     public void openFirstBookInSubcategoryList(String bookInfoKey) {
-        context.add(bookInfoKey, new SubcategoryPage().openFirstBook());
+        context.add(bookInfoKey, subcategoryPage.openFirstBook());
     }
 
     @When("I switch to {string} book type in search result")
     public void switchToCatalogTab(String bookType) {
-        new SearchResultPage().selectBookType(bookType);
+        searchResultPage.selectBookType(bookType);
     }
 
     @And("I open first book with {string} status")
     public void openFirstBookWithGivenStatus(String bookStatus) {
-        new SearchResultPage().openBookWithStatus(bookStatus);
+        searchResultPage.openBookWithStatus(bookStatus);
     }
 
     @And("Title of all present books contains {string}")
     public void checkTitleOfAllPresentBooksContains(String titlePart) {
-        Assert.assertTrue(new SubcategoryPage().getBookTitles().stream().allMatch(x -> x.toLowerCase().contains(titlePart.toLowerCase())),
+        Assert.assertTrue(subcategoryPage.getBookTitles().stream().allMatch(x -> x.toLowerCase().contains(titlePart.toLowerCase())),
                 "Not all present books titles contain '" + titlePart + "'");
     }
 
     @And("Author of all present books is {string}")
     public void checkAuthorOfAllPresentBooksIs(String authorName) {
-        Assert.assertTrue(new SubcategoryPage().getAuthors().stream().allMatch(x -> x.toLowerCase().contains(authorName.toLowerCase()) || x.contains(" more")),
+        Assert.assertTrue(subcategoryPage.getAuthors().stream().allMatch(x -> x.toLowerCase().contains(authorName.toLowerCase()) || x.contains(" more")),
                 "Not all present books authors contain '" + authorName + "'");
     }
 }

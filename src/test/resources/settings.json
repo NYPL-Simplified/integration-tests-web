@@ -9,12 +9,11 @@
       "webDriverVersion": "latest",
       "capabilities": {
         "browserName": "Chrome",
-        "browserVersion": "latest-beta",
+        "browserVersion": "latest",
         "os": "Windows",
         "osVersion": "10",
         "resolution": "1920x1080",
-        "local": "false",
-        "seleniumVersion": "3.14.0"
+        "seleniumVersion": "3.141.59"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -34,11 +33,11 @@
       "webDriverVersion": "latest",
       "capabilities": {
         "browserName": "Firefox",
-        "browserVersion": "latest-beta",
+        "browserVersion": "latest",
         "os": "Windows",
         "osVersion": "10",
         "resolution": "1920x1080",
-        "seleniumVersion": "3.5.2"
+        "seleniumVersion": "3.141.59"
       },
       "options": {
         "intl.accept_languages": "en",
@@ -64,7 +63,8 @@
         "os": "OS X",
         "osVersion": "Catalina",
         "resolution": "1920x1080",
-        "seleniumVersion": "3.14.0"
+        "video": "false",
+        "seleniumVersion": "3.141.59"
       }
     }
   },

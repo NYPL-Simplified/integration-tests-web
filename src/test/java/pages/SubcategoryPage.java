@@ -20,9 +20,6 @@ public class SubcategoryPage extends Form {
     private ILabel lblFirstBookAuthor = getElementFactory().getLabel(By.xpath("//span[@aria-label='Authors']"), "First book author");
     private ILabel lblFirstBookFormat = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), "First book format");
     private IButton btnViewFirstBookDetails = getElementFactory().getButton(By.xpath("//div[@class='card__ctas']//a"), "View first book details");
-    private List<IElement> listOfBookNames = getElementFactory().findElements(By.xpath("//li//h2"), ElementType.LABEL);
-    private List<IElement> listOfBookAuthors =
-            getElementFactory().findElements(By.xpath("//span[@aria-label='Authors']"), ElementType.LABEL);
 
     public SubcategoryPage() {
         super(By.id("facet-selector-Sort by"), "Subcategory");
@@ -46,14 +43,18 @@ public class SubcategoryPage extends Form {
     }
 
     public List<String> getBookTitles() {
-        return getListOfTextValues(listOfBookNames);
+        return getListOfTextValues(getListOfElements("//li//h2"));
     }
 
     public List<String> getAuthors() {
-        return getListOfTextValues(listOfBookAuthors);
+        return getListOfTextValues(getListOfElements("//span[@aria-label='Authors']"));
     }
 
     private List<String> getListOfTextValues(List<IElement> list) {
         return list.stream().map(IElement::getText).collect(Collectors.toList());
+    }
+
+    private List<IElement> getListOfElements(String s) {
+        return getElementFactory().findElements(By.xpath(s), ElementType.LABEL);
     }
 }

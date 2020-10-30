@@ -35,9 +35,9 @@ Feature: Catalog Navigation
         | Informational Books           |
         | All Children and Middle Grade |
       And List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
-    When I open 'Drama' subcategory
+    When I open 'Picture Books' subcategory
     Then Subcategory screen is present
-      And Subcategory name is 'Drama'
+      And Subcategory name is 'Picture Books'
 
   @tier1
   Scenario: Filter books
@@ -57,33 +57,19 @@ Feature: Catalog Navigation
   Scenario: Browse Lanes/Categories
     When I open 'LYRASIS' library
     Then Library is loaded
-    When I open 'Fiction' category
-    Then Current category name is 'Fiction'
+    When I open 'Young Adult Fiction' category
+    Then Current category name is 'Young Adult Fiction'
       And Count of books in first lane is up to 15
       And Following subcategories are present:
-          | gardening fun      |
-          | Classics           |
-          | Drama              |
-          | Adventure          |
-          | Jane Austen        |
-          | Fantasy            |
-          | Folklore           |
-          | Historical Fiction |
-          | Horror             |
-          | Humor              |
-          | Literary Fiction   |
-          | Mystery            |
-          | Poetry             |
-          | Romance            |
-          | Science Fiction    |
-          | Short Stories      |
-          | Thriller           |
-          | Westerns           |
-          | Women's Fiction    |
-          | All Fiction        |
-    When I open 'Adventure' subcategory
+        | Fantasy                 |
+        | Contemporary Fiction    |
+        | Mystery & Thriller      |
+        | Romance                 |
+        | Science Fiction         |
+        | All Young Adult Fiction |
+    When I open 'Fantasy' subcategory
     Then Subcategory screen is present
-      And Subcategory name is 'Adventure'
+      And Subcategory name is 'Fantasy'
     When I open first book in subcategory list and save it as 'bookInfo'
     Then Book 'bookInfo' is opened
 
