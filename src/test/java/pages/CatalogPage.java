@@ -13,16 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CatalogPage extends Form {
-    public static final String OPEN_CATEGORY_BUTTON_XPATH_PATTERN = "//h2[contains(text(),'%s')]//following-sibling::a";
-    public static final String SUBCATEGORY_LABEL_XPATH_PATTERN = "//h2[contains(text(),\"%s\")]";
-    public static final String BOOKS_COVERS = "//img[contains(@alt, 'Cover of book')]";
-    private List<IElement> listOfBookNames = getElementFactory().findElements(By.xpath("//h3"), ElementType.LABEL);
-    private List<IElement> listOfBookFormats =
-            getElementFactory().findElements(By.xpath("//div[@role='img' and contains(@aria-label,'Cover of book:')]/div//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), ElementType.LABEL);
-    private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
-    private List<IElement> namesOfBooksInFirstLane =
-            getElementFactory().findElements(By.xpath("(//ul[@data-testid])[1]//h3"), ElementType.LABEL);
+    private static final String OPEN_CATEGORY_BUTTON_XPATH_PATTERN = "//h2[contains(text(),'%s')]//following-sibling::a";
+    private static final String SUBCATEGORY_LABEL_XPATH_PATTERN = "//h2[contains(text(),\"%s\")]";
+    private static final String BOOKS_COVERS = "//img[contains(@alt, 'Cover of book')]";
+    private static final String BOOK_TITLES_LOCATOR = "//h3";
+    public static final String BOOK_TYPES_LOCATOR =
+            "//div[@role='img' and contains(@aria-label,'Cover of book:')]/div//*[name()='svg' and contains(@aria-label,'Book Medium:')]";
+    public static final String BOOKS_IN_FIRST_LANE_LOCATOR = "(//ul[@data-testid])[1]//h3";
 
+    private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
 
     public CatalogPage() {
         super(By.id("cpw-content"), "Catalog");
@@ -30,15 +29,15 @@ public class CatalogPage extends Form {
 
     private List<IElement> getBooksCovers() {
         AqualityServices.getConditionalWait().waitFor(webDriver ->
-                getElementFactory().findElements(By.xpath(BOOKS_COVERS), ElementType.LABEL).size() > 0);
-        return getElementFactory().findElements(By.xpath(BOOKS_COVERS), ElementType.LABEL)
+                getListOfElements(BOOKS_COVERS).size() > 0);
+        return getListOfElements(BOOKS_COVERS)
                 .stream()
                 .filter(element -> element.state().isDisplayed())
                 .collect(Collectors.toList());
     }
 
-    public List<String> getBooksNames() {
-        return listOfBookNames.stream().map(IElement::getText).collect(Collectors.toList());
+    public List<String> getBooksTitles() {
+        return getListOfElements(BOOK_TITLES_LOCATOR).stream().map(IElement::getText).collect(Collectors.toList());
     }
 
     public void openCategory(String categoryName) {
@@ -54,7 +53,7 @@ public class CatalogPage extends Form {
     }
 
     public List<String> getBooksType() {
-        return listOfBookFormats.stream().map(element -> element.getAttribute(ElementAttributesConstants.ARIA_LABEL_ATTRIBUTE)).collect(Collectors.toList());
+        return getListOfElements(CatalogPage.BOOK_TYPES_LOCATOR).stream().map(element -> element.getAttribute(ElementAttributesConstants.ARIA_LABEL_ATTRIBUTE)).collect(Collectors.toList());
     }
 
     public void clickRandomVisibleBookCover() {
@@ -63,10 +62,14 @@ public class CatalogPage extends Form {
     }
 
     public List<String> getListOfAllBooksNamesInFirstLane() {
-        return getValuesFromListOfLabels(namesOfBooksInFirstLane);
+        return getValuesFromListOfLabels(getListOfElements(BOOKS_IN_FIRST_LANE_LOCATOR));
     }
 
     private List<String> getValuesFromListOfLabels(List<IElement> elements) {
         return elements.stream().map(IElement::getText).collect(Collectors.toList());
+    }
+
+    private List<IElement> getListOfElements(String locator) {
+        return getElementFactory().findElements(By.xpath(locator), ElementType.LABEL);
     }
 }
