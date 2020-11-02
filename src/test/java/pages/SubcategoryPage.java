@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 public class SubcategoryPage extends Form {
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
     private IComboBox cmbSortByFormat = getElementFactory().getComboBox(By.id("facet-selector-Formats"), "Sort by format");
-    private ILabel lblFirstBookTitle = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//h2"), "First book title");
+    private ILabel lblFirstBookTitle = getElementFactory().getLabel(By.xpath("//div//h2"), "First book title");
     private ILabel lblFirstBookAuthor = getElementFactory().getLabel(By.xpath("//span[@aria-label='Authors']"), "First book author");
-    private ILabel lblFirstBookFormat = getElementFactory().getLabel(By.xpath("//div[@class='card__content']//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), "First book format");
-    private IButton btnViewFirstBookDetails = getElementFactory().getButton(By.xpath("//div[@class='card__ctas']//a"), "View first book details");
+    private ILabel lblFirstBookFormat = getElementFactory().getLabel(By.xpath("//div//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), "First book format");
+    private IButton btnViewFirstBookDetails = getElementFactory().getButton(By.xpath("//div//a[contains(text(),'Read more')]"), "View first book details");
 
     public SubcategoryPage() {
         super(By.id("facet-selector-Sort by"), "Subcategory");
