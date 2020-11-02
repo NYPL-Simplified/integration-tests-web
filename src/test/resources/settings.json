@@ -59,9 +59,7 @@
     "safari": {
       "capabilities": {
         "browserName": "Safari",
-        "browserVersion": "13.1",
-        "os": "OS X",
-        "osVersion": "Catalina",
+        "browserVersion": "12.1",
         "resolution": "1920x1080",
         "seleniumVersion": "3.141.59"
       }

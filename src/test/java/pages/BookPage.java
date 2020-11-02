@@ -4,6 +4,7 @@ import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
+import constants.pages.BookInfoItemConstants;
 import constants.pages.ElementAttributesConstants;
 import models.BookDetailsScreenInformationBlock;
 import models.BookInfo;
@@ -15,9 +16,6 @@ public class BookPage extends Form {
             "//li[contains(@aria-label,'%s')]//a[contains(text(),'See More')]";
     private static final String RECOMMENDATION_BOOK_XPATH_PATTERN = "//li[contains(@aria-label,'%s')]//li";
     private static final String DESCRIPTION_INFO_XPATH_PATTERN = "//b[contains(text(),'%s')]//following-sibling::span";
-    private static final String PUBLISHER_INFO_KEY = "Publisher";
-    private static final String CATEGORIES_INFO_KEY = "Categories";
-    private static final String PUBLISHED_INFO_KEY = "Published";
 
     private final IButton btnBorrowBook =
             getElementFactory().getButton(By.xpath("//button[contains(text(),'Borrow')]"), "Borrow book");
@@ -64,9 +62,9 @@ public class BookPage extends Form {
 
     public BookDetailsScreenInformationBlock getBookDescriptionInfo() {
         BookDetailsScreenInformationBlock bookDetailsScreenInformationBlock = new BookDetailsScreenInformationBlock();
-        bookDetailsScreenInformationBlock.setPublisher(getDescriptionInfo(PUBLISHER_INFO_KEY));
-        bookDetailsScreenInformationBlock.setCategories(getDescriptionInfo(CATEGORIES_INFO_KEY));
-        bookDetailsScreenInformationBlock.setPublished(getDescriptionInfo(PUBLISHED_INFO_KEY));
+        bookDetailsScreenInformationBlock.setPublisher(getDescriptionInfo(BookInfoItemConstants.PUBLISHER_INFO_KEY));
+        bookDetailsScreenInformationBlock.setCategories(getDescriptionInfo(BookInfoItemConstants.CATEGORIES_INFO_KEY));
+        bookDetailsScreenInformationBlock.setPublished(getDescriptionInfo(BookInfoItemConstants.PUBLISHED_INFO_KEY));
         return bookDetailsScreenInformationBlock;
     }
 
