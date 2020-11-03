@@ -1,6 +1,8 @@
 package stepdefinitions;
 
 import com.google.inject.Inject;
+import constants.pages.BookActionButtons;
+import framework.utilities.FileUtils;
 import framework.utilities.ScenarioContext;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.Transpose;
@@ -27,14 +29,21 @@ public class BookSteps {
         Assert.assertTrue(bookPage.state().waitForDisplayed(), "Book page was not opened");
     }
 
-    @When("I click borrow book button")
-    public void borrowBook() {
-        bookPage.clickBorrowBook();
+    @When("I click {} book action button")
+    public void clickBookActionButton(BookActionButtons action) {
+        bookPage.clickBookActionBtn(action);
     }
 
-    @Then("Check that download book button appeared")
-    public void checkThatDownloadBookBtnAppeared() {
-        Assert.assertTrue(bookPage.isDownloadBookBtnVisible(), "Download book button appeared");
+    @Then("Check that {} book button appeared")
+    public void checkThatBookActionBtnAppeared(BookActionButtons action) {
+        Assert.assertTrue(bookPage.isActionBtnVisible(action), "Download book button appeared");
+    }
+
+    @Then("Check the book was downloaded successfully")
+    public void checkThatTheBookWasDownloadedSuccessfully() {
+        String downloadBookName = bookPage.getDownloadFileName();
+        Assert.assertTrue(FileUtils.isFileContainingNameDownloaded(downloadBookName),
+                "The book was not downloaded successfully");
     }
 
     @Then("Book {string} is opened")
