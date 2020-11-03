@@ -52,11 +52,11 @@ public class BookSteps {
         bookPage.openRecommendationsCategory(subcategoryName);
     }
 
-    @And("Count of books in subcategory {string} lane is up to {int}")
+    @And("Count of books in subcategory {string} lane is more than {int}")
     public void checkCountOfBooksInSubcategoryLaneIsUpTo(String categoryName, int countOfBooks) {
         int actualBooksCount = bookPage.getCountOfBooksInRecommendationsLane(categoryName);
-        Assert.assertTrue(countOfBooks >= actualBooksCount,
-                String.format("Count of books is bigger then %d. Actual count - %d", countOfBooks, actualBooksCount));
+        Assert.assertTrue(countOfBooks < actualBooksCount,
+                String.format("Count of books is smaller than %d. Actual count - %d", countOfBooks, actualBooksCount));
     }
 
     @And("Description has text")
