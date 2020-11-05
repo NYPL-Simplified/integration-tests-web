@@ -2,6 +2,7 @@ package hooks;
 
 import aquality.selenium.browser.AqualityServices;
 import framework.configuration.Configuration;
+import framework.profile.ExtendedBrowserModule;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
@@ -16,7 +17,7 @@ public class BrowserHooks {
 
     @Before(order = 1)
     public void startBrowser() {
-        AqualityServices.getBrowser().maximize();
+        AqualityServices.initInjector(new ExtendedBrowserModule(AqualityServices::getBrowser));
         AqualityServices.getBrowser().goTo(Configuration.getStartUrl());
     }
 }
