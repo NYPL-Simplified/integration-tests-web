@@ -55,7 +55,7 @@ public class CatalogSteps {
 
     @Then("Current category name is {string}")
     public void checkCurrentCategoryNameIsCorrect(String categoryName) {
-        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(()->catalogPage.getCategoryName().equals(categoryName)), "Category name is not correct. Actual name-" + catalogPage.getCategoryName());
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> catalogPage.getCategoryName().equals(categoryName)), "Category name is not correct. Actual name-" + catalogPage.getCategoryName());
     }
 
     @And("Following subcategories are present:")
