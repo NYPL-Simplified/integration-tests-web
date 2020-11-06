@@ -38,11 +38,23 @@ public class BookPage extends Form {
     }
 
     public void clickBookActionBtn(BookActionButtons action) {
-        getActionButton(action).click();
+        if (action == BookActionButtons.DOWNLOAD_EPUB) {
+            if (getActionButton(BookActionButtons.DOWNLOAD_EPUB).state().waitForDisplayed()) {
+                getActionButton(BookActionButtons.DOWNLOAD_EPUB).click();
+            } else {
+                getActionButton(BookActionButtons.DOWNLOAD_EPUB_ADOBE).click();
+            }
+        } else {
+            getActionButton(action).click();
+        }
     }
 
     public boolean isActionBtnVisible(BookActionButtons action) {
-        return getActionButton(action).state().waitForDisplayed();
+        if (action == BookActionButtons.DOWNLOAD_EPUB) {
+            return getActionButton(BookActionButtons.DOWNLOAD_EPUB).state().waitForDisplayed() || getActionButton(BookActionButtons.DOWNLOAD_EPUB_ADOBE).state().waitForDisplayed();
+        } else {
+            return getActionButton(action).state().waitForDisplayed();
+        }
     }
 
     public BookInfo getBookInfo() {
