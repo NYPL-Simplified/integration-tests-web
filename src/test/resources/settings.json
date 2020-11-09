@@ -63,6 +63,18 @@
         "resolution": "1920x1080",
         "seleniumVersion": "3.141.59"
       }
+    },
+    "iphone": {
+      "capabilities": {
+        "osVersion": "13",
+        "deviceName": "iPhone XS"
+      }
+    },
+    "android": {
+      "capabilities": {
+        "osVersion": "9.0",
+        "deviceName": "Samsung Galaxy S9 Plus"
+      }
     }
   },
   "timeouts": {

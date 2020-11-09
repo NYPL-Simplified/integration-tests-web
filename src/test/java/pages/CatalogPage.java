@@ -53,6 +53,7 @@ public class CatalogPage extends Form {
     }
 
     public List<String> getBooksType() {
+        AqualityServices.getConditionalWait().waitFor(() -> getListOfElements(CatalogPage.BOOK_TYPES_LOCATOR).size() > 0);
         return getListOfElements(CatalogPage.BOOK_TYPES_LOCATOR).stream().map(element -> element.getAttribute(ElementAttributesConstants.ARIA_LABEL_ATTRIBUTE)).collect(Collectors.toList());
     }
 
