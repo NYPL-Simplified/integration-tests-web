@@ -1,6 +1,6 @@
 Feature: Catalog Navigation
 
-  @tier1
+  @tier1 @test
   Scenario: Navigate Lists
     When I open 'LYRASIS' library
     Then Library is loaded
