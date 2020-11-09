@@ -55,7 +55,7 @@ public class CatalogSteps {
 
     @Then("Current category name is {string}")
     public void checkCurrentCategoryNameIsCorrect(String categoryName) {
-        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(()->catalogPage.getCategoryName().equals(categoryName)), "Category name is not correct. Actual name-" + catalogPage.getCategoryName());
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> catalogPage.getCategoryName().equals(categoryName)), "Category name is not correct. Actual name-" + catalogPage.getCategoryName());
     }
 
     @And("Following subcategories are present:")
@@ -106,11 +106,11 @@ public class CatalogSteps {
         catalogPage.clickRandomVisibleBookCover();
     }
 
-    @And("Count of books in first lane is up to {int}")
+    @And("Count of books in first lane is more than {int}")
     public void countOfBooksInFirstLaneIsUpTo(int countOfBooks) {
         int actualBooksCount = catalogPage.getListOfAllBooksNamesInFirstLane().size();
-        Assert.assertTrue(countOfBooks >= actualBooksCount,
-                String.format("Count of books is bigger then %d. Actual count - %d", countOfBooks, actualBooksCount));
+        Assert.assertTrue(countOfBooks < actualBooksCount,
+                String.format("Count of books is smaller than %d. Actual count - %d", countOfBooks, actualBooksCount));
     }
 
     @When("I open first book in subcategory list and save it as {string}")
