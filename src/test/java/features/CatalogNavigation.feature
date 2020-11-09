@@ -1,9 +1,11 @@
 Feature: Catalog Navigation
 
-  @tier1
-  Scenario: Navigate Lists
+  Background:
     When I open 'LYRASIS' library
     Then Library is loaded
+
+  @tier1
+  Scenario: Navigate Lists
     When I get names of books on screen and save them as 'listOfBooksOnMainPage'
       And I open 'Young Adult Fiction' category
     Then Current category name is 'Young Adult Fiction'
@@ -41,8 +43,6 @@ Feature: Catalog Navigation
 
   @tier1
   Scenario: Filter books
-    When I open 'LYRASIS' library
-    Then Library is loaded
     When I filter books by 'eBooks' format
     Then Books feed is loaded
       And All present books are ebooks
@@ -55,8 +55,6 @@ Feature: Catalog Navigation
 
   @tier1
   Scenario: Browse Lanes/Categories
-    When I open 'LYRASIS' library
-    Then Library is loaded
     When I open 'Young Adult Fiction' category
     Then Current category name is 'Young Adult Fiction'
       And Count of books in first lane is more than 2
@@ -75,8 +73,6 @@ Feature: Catalog Navigation
 
   @tier1
   Scenario: Navigate Links
-    When I open 'LYRASIS' library
-    Then Library is loaded
     When I open 'Fiction' category
     Then Current category name is 'Fiction'
     When I open 'Adventure' subcategory
@@ -92,8 +88,6 @@ Feature: Catalog Navigation
 
   @tier1
   Scenario: View Book Details
-    When I open 'Howard County Library System' library
-    Then Library is loaded
     When I search for 'Harry Potter and the Goblet of Fire' book
       And I open first book with 'Unavailable' status
     Then Books info screen is present

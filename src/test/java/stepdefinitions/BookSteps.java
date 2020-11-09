@@ -39,6 +39,7 @@ public class BookSteps {
 
     @Then("Book {string} is opened")
     public void checkSavedBookIsOpened(String bookInfoKey) {
+        bookPage.state().waitForDisplayed();
         Assert.assertEquals(bookPage.getBookInfo(), context.get(bookInfoKey), "Open book is not correct");
     }
 
