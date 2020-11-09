@@ -31,11 +31,11 @@ public class BookSteps {
 
     @When("I click {} book action button")
     public void clickBookActionButton(BookActionButtons action) {
-        bookPage.clickBookActionBtn(action);
+        bookPage.clickBookActionButton(action);
     }
 
     @Then("Check that {} book button appeared")
-    public void checkThatBookActionBtnAppeared(BookActionButtons action) {
+    public void checkThatBookActionButtonAppeared(BookActionButtons action) {
         Assert.assertTrue(bookPage.isActionBtnVisible(action), "Download book button appeared");
     }
 

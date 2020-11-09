@@ -1,6 +1,5 @@
 package pages;
 
-import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.ILabel;
@@ -37,7 +36,7 @@ public class BookPage extends Form {
         super(By.xpath(BOOK_INFO_LOC), "Book page");
     }
 
-    public void clickBookActionBtn(BookActionButtons action) {
+    public void clickBookActionButton(BookActionButtons action) {
         getActionButton(action).click();
     }
 
