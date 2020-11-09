@@ -4,7 +4,7 @@ Feature: Catalog Navigation
     When I open 'LYRASIS' library
     Then Library is loaded
 
-  @tier1
+  @tier1 @desktop @mobile
   Scenario: Navigate Lists
     When I get names of books on screen and save them as 'listOfBooksOnMainPage'
       And I open 'Young Adult Fiction' category
@@ -41,7 +41,7 @@ Feature: Catalog Navigation
     Then Subcategory screen is present
       And Subcategory name is 'Picture Books'
 
-  @tier1
+  @tier1 @desktop @mobile
   Scenario: Filter books
     When I filter books by 'eBooks' format
     Then Books feed is loaded
@@ -53,7 +53,7 @@ Feature: Catalog Navigation
       And I filter books by 'All' format
     Then List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
 
-  @tier1
+  @tier1 @desktop @mobile
   Scenario: Browse Lanes/Categories
     When I open 'Young Adult Fiction' category
     Then Current category name is 'Young Adult Fiction'
@@ -71,7 +71,7 @@ Feature: Catalog Navigation
     When I open first book in subcategory list and save it as 'bookInfo'
     Then Book 'bookInfo' is opened
 
-  @tier1
+  @tier1 @desktop @mobile
   Scenario: Navigate Links
     When I open 'Fiction' category
     Then Current category name is 'Fiction'
@@ -86,7 +86,7 @@ Feature: Catalog Navigation
       And I return to previous screen
       And Current category name is 'Fiction'
 
-  @tier1
+  @tier1 @desktop @mobile
   Scenario: View Book Details
     When I search for 'Harry Potter and the Goblet of Fire' book
       And I open first book with 'Unavailable' status

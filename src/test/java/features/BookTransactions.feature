@@ -8,19 +8,19 @@ Feature: Book Transactions
     When I open random book page
     Then Check book page was opened
 
-  @tier1 @logout
+  @tier1 @logout @desktop
   Scenario: Check-out
     When I click BORROW book action button
     Then Check that DOWNLOAD_EPUB book button appeared
 
-  @tier1 @logout
+  @tier1 @logout @desktop
   Scenario: Download
     When I click BORROW book action button
     Then Check that DOWNLOAD_EPUB book button appeared
     When I click DOWNLOAD_EPUB book action button
     Then Check the book was downloaded successfully
 
-  @tier1 @logout
+  @tier1 @logout @desktop
   Scenario: Return
     When I click BORROW book action button
     Then Check that DOWNLOAD_EPUB book button appeared
