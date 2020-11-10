@@ -40,7 +40,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Run tests
-      run: |
+      run:
         SECRET_NAME=$(secrets.CPW_${{github.event.inputs.environment}}_LINK)
         mvn clean test -DstartUrl=${{$SECRET_NAME}} -Daquality.buildName="${{github.event.inputs.build_name}}" -Daquality.token=${{secrets.TRACKING_API_TOKEN}} -Daquality.suiteName="${{github.event.inputs.test_tag}}" -Daquality.environment="${{github.event.inputs.browser_name}}" -Dcredentials.LYRASIS.${{secrets.BookCard}}=${{secrets.BookPin}} -Dcredentials.LYRASIS.${{secrets.BookCardLyrasis2}}=${{secrets.BookPinLyrasis2}} -Dcredentials."The New York Public Library".${{secrets.BookCardNYPL}}=${{secrets.BookPinNYPL}} -DremoteConnectionUrl=${{secrets.remoteConnectionUrl}} -DbrowserName=${{github.event.inputs.browser_name}} -Dcucumber.options="--tags '(${{github.event.inputs.test_tag}}) and @${{github.event.inputs.browser_type}}'" -Denvironment=${{github.event.inputs.environment}}
     - name: Generate Allure Report
