@@ -4,7 +4,7 @@ Feature: Catalog Navigation
     When I open 'LYRASIS' library
     Then Library is loaded
 
-  @tier1 @desktop @mobile @smoke
+  @tier1 @desktop @mobile
   Scenario: Navigate Lists
     When I get names of books on screen and save them as 'listOfBooksOnMainPage'
       And I open 'Young Adult Fiction' category
