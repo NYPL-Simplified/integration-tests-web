@@ -71,7 +71,7 @@ Feature: Catalog Navigation
     When I open first book in subcategory list and save it as 'bookInfo'
     Then Book 'bookInfo' is opened
 
-  @tier1 @desktop @mobile
+  @tier1 @desktop @mobile @smoke
   Scenario: Navigate Links
     When I open 'Fiction' category
     Then Current category name is 'Fiction'
