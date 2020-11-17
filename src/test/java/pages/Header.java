@@ -6,7 +6,7 @@ import aquality.selenium.forms.Form;
 import constants.pages.HeaderPageConstants;
 import org.openqa.selenium.By;
 
-public class HeaderPage extends Form {
+public class Header extends Form {
     private static final String LOGIN_LOGOUT_BTN_LOC = "//button[text()='%1$s']";
     private static final String BREADCRUMB_XPATH_PATTERN = "//a[contains(text(),'%s')]";
 
@@ -17,8 +17,8 @@ public class HeaderPage extends Form {
     private final IButton btnSearch = getElementFactory().getButton(By.xpath("//form[@role='search']/button"), "Search");
     private final ITextBox txbSearchItem = getElementFactory().getTextBox(By.id("search-bar"), "Search bar");
 
-    public HeaderPage() {
-        super(By.xpath("//header"), "Header page");
+    public Header() {
+        super(By.xpath("//header"), "Header");
     }
 
     public void openSignInModal() {

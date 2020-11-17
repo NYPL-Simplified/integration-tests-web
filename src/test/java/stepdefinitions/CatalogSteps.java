@@ -29,6 +29,8 @@ public class CatalogSteps {
         this.context = context;
         libraryLinks.put("lyrasis", "lyrasis");
         libraryLinks.put("howard county library system", "howard");
+        libraryLinks.put("columbia university libraries", "CUL");
+        libraryLinks.put("washington state library", "wsl");
     }
 
     @And("I open {string} library")
