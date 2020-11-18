@@ -2,8 +2,8 @@ package framework.profile;
 
 import aquality.selenium.browser.BrowserName;
 import aquality.selenium.configuration.BrowserProfile;
-import aquality.selenium.configuration.driversettings.IDriverSettings;
 import aquality.selenium.configuration.driversettings.AndroidSettings;
+import aquality.selenium.configuration.driversettings.IDriverSettings;
 import aquality.selenium.configuration.driversettings.IPhoneSettings;
 import aquality.selenium.core.utilities.ISettingsFile;
 import com.google.inject.Inject;
@@ -13,7 +13,14 @@ public class ExtendedProfile extends BrowserProfile {
 
     @Override
     public BrowserName getBrowserName() {
-        return BrowserName.SAFARI;
+        String browserName = String.valueOf(this.settingsFile.getValue("/browserName")).toUpperCase();
+        switch (browserName) {
+            case "IPHONE":
+            case "ANDROID":
+                return BrowserName.SAFARI;
+            default:
+                return super.getBrowserName();
+        }
     }
 
     @Inject

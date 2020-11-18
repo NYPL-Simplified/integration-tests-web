@@ -46,7 +46,7 @@ public class Logger {
     }
 
     public void removeAppender() {
-        if (scenarioAppender!=null){
+        if (scenarioAppender != null) {
             AqualityServices.getLogger().removeAppender(scenarioAppender);
         }
     }
