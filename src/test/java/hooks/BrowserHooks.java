@@ -19,5 +19,6 @@ public class BrowserHooks {
     public void startBrowser() {
         AqualityServices.initInjector(new ExtendedBrowserModule(AqualityServices::getBrowser));
         AqualityServices.getBrowser().goTo(Configuration.getStartUrl());
+        AqualityServices.getLogger().info("Session id - " + AqualityServices.getBrowser().getDriver().getSessionId().toString());
     }
 }
