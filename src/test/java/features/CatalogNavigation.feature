@@ -88,6 +88,8 @@ Feature: Catalog Navigation
 
   @tier1 @desktop @mobile
   Scenario: View Book Details
+    When I open 'Howard County Library System' library
+    Then Library is loaded
     When I search for 'Harry Potter and the Goblet of Fire' book
       And I open first book with 'Unavailable' status
     Then Books info screen is present

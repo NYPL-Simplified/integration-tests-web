@@ -2,8 +2,11 @@ package framework.utilities;
 
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.core.logging.Logger;
+import constants.pages.DownloadConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
+
+import java.time.Duration;
 
 public final class FileUtils {
     private FileUtils() {
@@ -15,11 +18,8 @@ public final class FileUtils {
     }
 
     private static boolean isFileContainingNameDownloadedRemote(String fileName) {
-        return AqualityServices.getConditionalWait().waitFor(driver -> (boolean) AqualityServices.getBrowser()
-                        .executeScript(String.format("browserstack_executor: "
-                                + "{\"action\": \"fileExists\", \"argument"
-                                + "s\": {\"fileName\": \"%1$s\"}}", fileName)),
-                "Checking that file downloaded successfully to the download dir");
+        return AqualityServices.getConditionalWait().waitFor(driver ->
+                (boolean) AqualityServices.getBrowser().executeScript(String.format("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"%1$s\"}}", fileName)), Duration.ofSeconds(DownloadConstants.BOOK_DOWNLOAD.getTimeout()));
     }
 
     private static boolean isFileContainingNameDownloadedLocal(String fileName) {
@@ -40,10 +40,10 @@ public final class FileUtils {
         String downloadDirectory = AqualityServices.getBrowser().getDownloadDirectory();
 
         // below is workaround for case when local FS is different from remote (e.g. local machine runs on Windows but remote runs on Linux)
-        if(downloadDirectory.contains("/") && !downloadDirectory.endsWith("/")) {
+        if (downloadDirectory.contains("/") && !downloadDirectory.endsWith("/")) {
             downloadDirectory = downloadDirectory.concat("/");
         }
-        if(downloadDirectory.contains("\\") && !downloadDirectory.endsWith("\\")) {
+        if (downloadDirectory.contains("\\") && !downloadDirectory.endsWith("\\")) {
             downloadDirectory = downloadDirectory.concat("\\");
         }
         return downloadDirectory.concat(fileName);

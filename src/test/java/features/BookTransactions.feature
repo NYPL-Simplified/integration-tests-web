@@ -11,18 +11,18 @@ Feature: Book Transactions
   @tier1 @logout @desktop @test
   Scenario: Check-out (Book Detail View)
     When I click BORROW book action button
-    Then Check that DOWNLOAD_EPUB book button appeared
+    Then Check that download book button is present
 
   @tier1 @logout @desktop
   Scenario: Download (Book Detail View)
     When I click BORROW book action button
-    Then Check that DOWNLOAD_EPUB book button appeared
-    When I click DOWNLOAD_EPUB book action button
+    Then Check that download book button is present
+    When I download book
     Then Check the book was downloaded successfully
 
   @tier1 @logout @desktop
   Scenario: Return (Book Detail View)
     When I click BORROW book action button
-    Then Check that DOWNLOAD_EPUB book button appeared
+    Then Check that download book button is present
     When I click RETURN book action button
     Then Check that BORROW book button appeared
