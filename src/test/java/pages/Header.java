@@ -42,6 +42,7 @@ public class Header extends Form {
     }
 
     public void searchFor(String searchItem) {
+        txbSearchItem.state().waitForDisplayed();
         txbSearchItem.clearAndType(searchItem);
         btnSearch.click();
     }

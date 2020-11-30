@@ -1,6 +1,7 @@
 package hooks;
 
 import aquality.selenium.browser.AqualityServices;
+import aquality.selenium.browser.BrowserName;
 import framework.configuration.Configuration;
 import framework.profile.ExtendedBrowserModule;
 import io.cucumber.java.After;
@@ -19,6 +20,9 @@ public class BrowserHooks {
     public void startBrowser() {
         AqualityServices.initInjector(new ExtendedBrowserModule(AqualityServices::getBrowser));
         AqualityServices.getBrowser().goTo(Configuration.getStartUrl());
+        if (AqualityServices.getConfiguration().getBrowserProfile().getBrowserName() != BrowserName.SAFARI) {
+            AqualityServices.getBrowser().maximize();
+        }
         AqualityServices.getLogger().info("Session id - " + AqualityServices.getBrowser().getDriver().getSessionId().toString());
     }
 }

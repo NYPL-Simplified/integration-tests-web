@@ -66,6 +66,7 @@ public class BookPage extends Form {
     }
 
     public int getCountOfBooksInRecommendationsLane(String categoryName) {
+        getElementFactory().getButton(By.xpath(String.format(RECOMMENDATION_BOOK_XPATH_PATTERN, categoryName)), categoryName).getJsActions().scrollIntoView();
         return getElementFactory().findElements(By.xpath(String.format(RECOMMENDATION_BOOK_XPATH_PATTERN, categoryName)), ElementType.LABEL).size();
     }
 

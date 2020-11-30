@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import aquality.selenium.browser.AqualityServices;
 import com.google.inject.Inject;
 import constants.pages.BookActionButtons;
 import framework.utilities.FileUtils;
@@ -34,9 +35,23 @@ public class BookSteps {
         bookPage.clickBookActionButton(action);
     }
 
+    @When("I download book")
+    public void downloadBook() {
+        if (bookPage.isActionBtnVisible(BookActionButtons.DOWNLOAD_EPUB)) {
+            bookPage.clickBookActionButton(BookActionButtons.DOWNLOAD_EPUB);
+        } else {
+            bookPage.clickBookActionButton(BookActionButtons.DOWNLOAD_EPUB_ADOBE);
+        }
+    }
+
     @Then("Check that {} book button appeared")
     public void checkThatBookActionButtonAppeared(BookActionButtons action) {
         Assert.assertTrue(bookPage.isActionBtnVisible(action), "Download book button appeared");
+    }
+
+    @Then("Check that download book button is present")
+    public void checkThatDownloadBookActionButtonAppeared() {
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> bookPage.isActionBtnVisible(BookActionButtons.DOWNLOAD_EPUB) || bookPage.isActionBtnVisible(BookActionButtons.DOWNLOAD_EPUB_ADOBE)), "Download book button appeared");
     }
 
     @Then("Check the book was downloaded successfully")
