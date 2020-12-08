@@ -24,6 +24,7 @@ public class BookPage extends Form {
     private static final String RECOMMENDATION_BOOK_XPATH_PATTERN = "//li[contains(@aria-label,'%s')]//li";
     private static final String DESCRIPTION_INFO_XPATH_PATTERN = "//b[contains(text(),'%s')]//following-sibling::span";
     private static final String BOOK_ACTION_BUTTON = "//button[contains(text(), '%1$s')]";
+    public static final String LBL_STATUS_XPATH_LOCATOR = "//div[@aria-label='Borrow and download card']//span";
 
     private final ILabel lblTitle = getElementFactory().getLabel(By.xpath("//h1"), "Title");
     private final ILabel lblAuthor = getElementFactory().getLabel(By.xpath("//div[@aria-label='Book info']//span"), "Author");
@@ -31,6 +32,9 @@ public class BookPage extends Form {
             getElementFactory().getLabel(By.xpath("//div[@aria-label='Book info']/span/*[name()='svg']"), "Format");
     private final ILabel lblDescription =
             getElementFactory().getLabel(By.xpath("//div[@aria-label='Book summary']/div"), "Description");
+    private final ILabel lblStatus = getElementFactory().getLabel(By.xpath(LBL_STATUS_XPATH_LOCATOR), "Status");
+    private final ILabel lblQueue =
+            getElementFactory().getLabel(By.xpath(String.format("(%s)[2]", LBL_STATUS_XPATH_LOCATOR)), "Queue status");
 
     public BookPage() {
         super(By.xpath(BOOK_INFO_LOC), "Book page");
@@ -80,6 +84,14 @@ public class BookPage extends Form {
         bookDetailsScreenInformationBlock.setCategories(getDescriptionInfo(BookInfoItemConstants.CATEGORIES_INFO_KEY));
         bookDetailsScreenInformationBlock.setPublished(getDescriptionInfo(BookInfoItemConstants.PUBLISHED_INFO_KEY));
         return bookDetailsScreenInformationBlock;
+    }
+
+    public String getStatus() {
+        return lblStatus.getText();
+    }
+
+    public String getPatronMessage() {
+        return lblQueue.getText();
     }
 
     private String getDescriptionInfo(String key) {

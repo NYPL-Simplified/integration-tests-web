@@ -1,15 +1,19 @@
 package pages;
 
+import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.elements.ElementType;
 import aquality.selenium.elements.interfaces.IButton;
 import aquality.selenium.elements.interfaces.IComboBox;
 import aquality.selenium.elements.interfaces.IElement;
 import aquality.selenium.elements.interfaces.ILabel;
 import aquality.selenium.forms.Form;
+import constants.pages.BookActionButtons;
+import constants.pages.BookConstants;
 import constants.pages.ElementAttributesConstants;
 import models.BookInfo;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +24,7 @@ public class SubcategoryPage extends Form {
     private ILabel lblFirstBookAuthor = getElementFactory().getLabel(By.xpath("//span[@aria-label='Authors']"), "First book author");
     private ILabel lblFirstBookFormat = getElementFactory().getLabel(By.xpath("//div//*[name()='svg' and contains(@aria-label,'Book Medium:')]"), "First book format");
     private IButton btnViewFirstBookDetails = getElementFactory().getButton(By.xpath("//div//a[contains(text(),'Read more')]"), "View first book details");
+    private IButton btnViewMore = getElementFactory().getButton(By.xpath("//button[contains(text(),'View more')]"), "View more");
 
     public SubcategoryPage() {
         super(By.id("facet-selector-Sort by"), "Subcategory");
@@ -56,5 +61,27 @@ public class SubcategoryPage extends Form {
 
     private List<IElement> getListOfElements(String s) {
         return getElementFactory().findElements(By.xpath(s), ElementType.LABEL);
+    }
+
+    public void cancelReservationForBook(BookInfo bookInfo) {
+        String title = bookInfo.getTitle();
+        getElementFactory().getButton(By.xpath(String.format("//h2[./a[contains(@aria-label,'%1$s')]]/parent::div/following-sibling::button[contains(text(),'%2$s')]", title, BookActionButtons.CANCEL_RESERVATION.getAction())), title).click();
+    }
+
+    public boolean isBookPresent(BookInfo bookInfo) {
+        String title = bookInfo.getTitle();
+        return getElementFactory().getButton(By.xpath(String.format("//h2[./a[contains(@aria-label,'%1$s')]]", title)), title).state().isDisplayed();
+    }
+
+    public void openBookWithGivenActionButton(BookActionButtons bookActionButtons) {
+        IButton btnOpenBookWithGivenButton = getElementFactory().getButton(By.xpath(String.format("//div[./button[contains(text(),'%s')]]//following-sibling::div/a", bookActionButtons.getAction())), "View book details");
+        if (!btnOpenBookWithGivenButton.state().isDisplayed()) {
+            AqualityServices.getConditionalWait().waitFor(() -> {
+                btnViewMore.state().waitForClickable();
+                btnViewMore.click();
+                return btnOpenBookWithGivenButton.state().isDisplayed();
+            }, Duration.ofSeconds(BookConstants.BOOK_SEARCH.getTimeout()));
+        }
+        btnOpenBookWithGivenButton.click();
     }
 }

@@ -1,11 +1,12 @@
 package constants.pages;
 
-public enum DownloadConstants {
-    BOOK_DOWNLOAD(45);
+public enum BookConstants {
+    BOOK_DOWNLOAD(45),
+    BOOK_SEARCH(120);
 
     private int timeoutInSeconds;
 
-    DownloadConstants(int timeoutInSeconds) {
+    BookConstants(int timeoutInSeconds) {
 
         this.timeoutInSeconds = timeoutInSeconds;
     }

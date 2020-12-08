@@ -11,7 +11,7 @@ import java.util.Map;
  * It guarantees the clear state in a new scenario.
  */
 @ScenarioScoped
-public class ScenarioContext  {
+public class ScenarioContext {
 
     private final Map<String, Object> context;
 
@@ -26,5 +26,9 @@ public class ScenarioContext  {
     @SuppressWarnings("unchecked")
     public <T> T get(String key) {
         return (T) context.get(key);
+    }
+
+    public boolean containsKey(String key) {
+        return context.containsKey(key);
     }
 }
