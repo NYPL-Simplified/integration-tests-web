@@ -2,7 +2,7 @@ package framework.utilities;
 
 import aquality.selenium.browser.AqualityServices;
 import aquality.selenium.core.logging.Logger;
-import constants.pages.DownloadConstants;
+import constants.pages.BookConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 
@@ -19,7 +19,7 @@ public final class FileUtils {
 
     private static boolean isFileContainingNameDownloadedRemote(String fileName) {
         return AqualityServices.getConditionalWait().waitFor(driver ->
-                (boolean) AqualityServices.getBrowser().executeScript(String.format("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"%1$s\"}}", fileName)), Duration.ofSeconds(DownloadConstants.BOOK_DOWNLOAD.getTimeout()));
+                (boolean) AqualityServices.getBrowser().executeScript(String.format("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"%1$s\"}}", fileName)), Duration.ofSeconds(BookConstants.BOOK_DOWNLOAD.getTimeout()));
     }
 
     private static boolean isFileContainingNameDownloadedLocal(String fileName) {

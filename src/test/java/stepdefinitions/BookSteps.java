@@ -2,6 +2,7 @@ package stepdefinitions;
 
 import aquality.selenium.browser.AqualityServices;
 import com.google.inject.Inject;
+import constants.context.ContextLibrariesKeys;
 import constants.pages.BookActionButtons;
 import framework.utilities.FileUtils;
 import framework.utilities.ScenarioContext;
@@ -11,9 +12,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import models.BookDetailsScreenInformationBlock;
+import models.BookInfo;
 import org.testng.Assert;
 import pages.BookPage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class BookSteps {
@@ -33,6 +37,9 @@ public class BookSteps {
     @When("I click {} book action button")
     public void clickBookActionButton(BookActionButtons action) {
         bookPage.clickBookActionButton(action);
+        if (action == BookActionButtons.RESERVE) {
+            saveBookInContext(ContextLibrariesKeys.CANCEL_HOLD, bookPage.getBookInfo());
+        }
     }
 
     @When("I download book")
@@ -101,5 +108,25 @@ public class BookSteps {
         bookDetailsScreenInformationBlock.setPublisher(entry.get("publisher"));
         bookDetailsScreenInformationBlock.setPublished(entry.get("published"));
         return bookDetailsScreenInformationBlock;
+    }
+
+    @And("Book status is {string}")
+    public void checkBookStatusIsReserved(String bookStatus) {
+        Assert.assertEquals(bookPage.getStatus(), bookStatus, "Book status is not correct");
+    }
+
+    @And("Message {string} is present")
+    public void checkMessageAboutPatronsInTheQueueIsPresent(String message) {
+        Assert.assertTrue(bookPage.getPatronMessage().contains(message),
+                String.format("Queue status is not correct. Expected '%s', actual - '%s'", message, bookPage.getPatronMessage()));
+    }
+
+    private void saveBookInContext(String key, BookInfo bookName) {
+        List<BookInfo> listOfLibraries = context.containsKey(key)
+                ? context.get(key)
+                : new ArrayList<>();
+
+        listOfLibraries.add(bookName);
+        context.add(key, listOfLibraries);
     }
 }

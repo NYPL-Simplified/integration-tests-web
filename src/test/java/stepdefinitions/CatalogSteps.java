@@ -2,12 +2,14 @@ package stepdefinitions;
 
 import aquality.selenium.browser.AqualityServices;
 import com.google.inject.Inject;
+import constants.pages.BookActionButtons;
 import framework.configuration.Configuration;
 import framework.utilities.ScenarioContext;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import pages.BookPage;
 import pages.CatalogPage;
 import pages.SearchResultPage;
 import pages.SubcategoryPage;
@@ -21,6 +23,7 @@ public class CatalogSteps {
     private final CatalogPage catalogPage = new CatalogPage();
     private final SubcategoryPage subcategoryPage = new SubcategoryPage();
     private final SearchResultPage searchResultPage = new SearchResultPage();
+    private final BookPage bookPage = new BookPage();
     private Map<String, String> libraryLinks = new HashMap<>();
     private ScenarioContext context;
 
@@ -140,5 +143,12 @@ public class CatalogSteps {
     public void checkAuthorOfAllPresentBooksIs(String authorName) {
         Assert.assertTrue(subcategoryPage.getAuthors().stream().allMatch(x -> x.toLowerCase().contains(authorName.toLowerCase()) || x.contains(" more")),
                 "Not all present books authors contain '" + authorName + "'");
+    }
+
+    @And("I open the book details for book with button {} and save it as {string}")
+    public void openBookDetailsForBookWithGivenButtonAndSaveItAs(BookActionButtons action, String bookInfoKey) {
+        subcategoryPage.openBookWithGivenActionButton(action);
+        bookPage.state().waitForDisplayed();
+        context.add(bookInfoKey, bookPage.getBookInfo());
     }
 }
