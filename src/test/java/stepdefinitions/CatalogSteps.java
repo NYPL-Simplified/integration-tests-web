@@ -6,6 +6,7 @@ import constants.pages.BookActionButtons;
 import framework.configuration.Configuration;
 import framework.utilities.ScenarioContext;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
@@ -37,6 +38,7 @@ public class CatalogSteps {
     }
 
     @And("I open {string} library")
+    @Given("{string} library is opened")
     public void openLibrary(String libraryName) {
         AqualityServices.getBrowser().goTo(Configuration.getStartUrl() + libraryLinks.get(libraryName.toLowerCase()));
     }
