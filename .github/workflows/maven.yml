@@ -5,7 +5,7 @@ name: Test Run
 
 on:
   workflow_dispatch:
-    branches: [ ga_script ]
+    branches: [ main ]
     inputs:
       test_tag:
         description: 'Tags to run'
