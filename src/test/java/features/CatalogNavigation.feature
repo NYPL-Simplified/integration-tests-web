@@ -1,15 +1,13 @@
 Feature: Catalog Navigation
 
   Background:
-    When I open 'LYRASIS' library
-    Then Library is loaded
+    Given 'LYRASIS' library is opened
 
   @tier1 @desktop @mobile
   Scenario: Navigate Lists
     When I get names of books on screen and save them as 'listOfBooksOnMainPage'
       And I open 'Young Adult Fiction' category
     Then Current category name is 'Young Adult Fiction'
-      And Books feed is loaded
       And Following subcategories are present:
         | Fantasy                 |
         | Contemporary Fiction    |
@@ -21,7 +19,6 @@ Feature: Catalog Navigation
     When I return to previous screen
       And I open 'Children and Middle Grade' category
     Then Current category name is 'Children and Middle Grade'
-      And Books feed is loaded
       And Following subcategories are present:
         | Picture Books                 |
         | Easy Readers                  |
@@ -38,17 +35,14 @@ Feature: Catalog Navigation
         | All Children and Middle Grade |
       And List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
     When I open 'Picture Books' subcategory
-    Then Subcategory screen is present
-      And Subcategory name is 'Picture Books'
+    Then Subcategory name is 'Picture Books'
 
   @tier1 @desktop @mobile
   Scenario: Filter books
     When I filter books by 'eBooks' format
-    Then Books feed is loaded
-      And All present books are ebooks
+    Then All present books are ebooks
     When I filter books by 'Audiobooks' format
-    Then Books feed is loaded
-      And All present books are audiobooks
+    Then All present books are audiobooks
     When I get names of books on screen and save them as 'listOfBooksOnMainPage'
       And I filter books by 'All' format
     Then List of books on screen is not equal to list of books saved as 'listOfBooksOnMainPage'
@@ -66,8 +60,7 @@ Feature: Catalog Navigation
         | Science Fiction         |
         | All Young Adult Fiction |
     When I open 'Fantasy' subcategory
-    Then Subcategory screen is present
-      And Subcategory name is 'Fantasy'
+    Then Subcategory name is 'Fantasy'
     When I open first book in subcategory list and save it as 'bookInfo'
     Then Book 'bookInfo' is opened
 
@@ -89,15 +82,13 @@ Feature: Catalog Navigation
   @tier1 @desktop @mobile
   Scenario: View Book Details
     When I open 'Everett Public Library' library
-    Then Library is loaded
-    When I search for 'Harry Potter and the Goblet of Fire' book
+      And I search for 'Harry Potter and the Goblet of Fire' book
       And I open first book with 'Unavailable' status
-    Then Books info screen is present
-      And The following values in the information block are present:
-        | key        | value                                               |
-        | published  | November 20, 2015                                   |
-        | publisher  | Pottermore Publishing                               |
-        | categories | Children, 9-12, Fiction, Fantasy, Suspense/Thriller |
+    Then The following values in the information block are present:
+      | key        | value                                               |
+      | published  | November 20, 2015                                   |
+      | publisher  | Pottermore Publishing                               |
+      | categories | Children, 9-12, Fiction, Fantasy, Suspense/Thriller |
       And Description has text
       """
       "'There will be three tasks, spaced throughout the school year, and they will test the champions in many different ways ... their magical prowess - their daring - their powers of deduction - and, of course, their ability to cope with danger.'"
