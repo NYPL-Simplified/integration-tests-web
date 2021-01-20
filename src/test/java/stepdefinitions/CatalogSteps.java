@@ -32,9 +32,11 @@ public class CatalogSteps {
     public CatalogSteps(ScenarioContext context) {
         this.context = context;
         libraryLinks.put("lyrasis", "lyrasis");
-        libraryLinks.put("howard county library system", "howard");
-        libraryLinks.put("columbia university libraries", "CUL");
         libraryLinks.put("washington state library", "wsl");
+        libraryLinks.put("columbia university libraries", "190150");
+        libraryLinks.put("everett public library", "wa0051");
+        libraryLinks.put("washington county free library", "mdwash");
+        libraryLinks.put("st. mary's county library", "mdmary");
     }
 
     @And("I open {string} library")

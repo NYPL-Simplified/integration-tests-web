@@ -1,8 +1,8 @@
 {
-  "enabled": false,
+  "enabled": true,
   "host": "http://se-community-a1qa.lyrtech.org:8080/api",
   "token": "",
-  "projectId": 0,
+  "projectId": 2,
   "debug": false,
   "attachmentsDirectory": "target/attachments"
 }
