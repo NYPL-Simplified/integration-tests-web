@@ -88,16 +88,16 @@ Feature: Catalog Navigation
 
   @tier1 @desktop @mobile
   Scenario: View Book Details
-    When I open 'Howard County Library System' library
+    When I open 'Everett Public Library' library
     Then Library is loaded
     When I search for 'Harry Potter and the Goblet of Fire' book
       And I open first book with 'Unavailable' status
     Then Books info screen is present
       And The following values in the information block are present:
-        | key        | value                          |
-        | published  | December 8, 2015               |
-        | publisher  | Pottermore Publishing          |
-        | categories | Children, 18, Fiction, Fantasy |
+        | key        | value                                               |
+        | published  | November 20, 2015                                   |
+        | publisher  | Pottermore Publishing                               |
+        | categories | Children, 9-12, Fiction, Fantasy, Suspense/Thriller |
       And Description has text
       """
       "'There will be three tasks, spaced throughout the school year, and they will test the champions in many different ways ... their magical prowess - their daring - their powers of deduction - and, of course, their ability to cope with danger.'"

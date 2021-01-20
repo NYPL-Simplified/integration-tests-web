@@ -1,10 +1,12 @@
 Feature: View Privacy Policy
 
   Scenario: View Privacy Policy, EULA
-    When I open 'Howard County Library System' library
+    When I open 'Washington County Free Library' library
     Then Library is loaded
     When I open 'Privacy' footer link
     Then New tab with link containing 'http://notices.sailor.lib.md.us/simplye/' is opened
+    When I open 'St. Mary\'s County Library' library
+    Then Library is loaded
     When I open 'Terms of Use' footer link
     Then New tab with link containing 'EULA.html' is opened
     When I open 'Washington State Library' library
