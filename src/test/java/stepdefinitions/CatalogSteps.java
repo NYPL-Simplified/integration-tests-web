@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import models.BookInfo;
 import org.testng.Assert;
 import pages.BookPage;
 import pages.CatalogPage;
@@ -154,5 +155,11 @@ public class CatalogSteps {
         subcategoryPage.openBookWithGivenActionButton(action);
         bookPage.state().waitForDisplayed();
         context.add(bookInfoKey, bookPage.getBookInfo());
+    }
+
+    @Then("Book {string} is not present in My Books")
+    public void checkBookIsNotPresentInMyBooks(String bookInfoKey) {
+        BookInfo bookInfo = context.get(bookInfoKey);
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> !subcategoryPage.isBookPresent(bookInfo), "Book is still present on My books page");
     }
 }
