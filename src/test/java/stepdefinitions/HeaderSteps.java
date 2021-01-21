@@ -39,4 +39,9 @@ public class HeaderSteps {
         header.searchFor(searchItem);
         searchResultPage.state().waitForDisplayed();
     }
+
+    @When("I open My books")
+    public void openMyBooks() {
+        header.openMyBooks();
+    }
 }
