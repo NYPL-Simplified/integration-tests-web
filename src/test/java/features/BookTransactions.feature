@@ -39,6 +39,7 @@ Feature: Book Transactions
 
   @logout @cancelHold @tier2
   Scenario: Remove a Reserved Book (My Books)
+    When I open main library page
     When I open 'Children and Middle Grade' category
       And I open 'All Children and Middle Grade' category
       And I open the book details for book with button RESERVE and save it as 'bookInfo'

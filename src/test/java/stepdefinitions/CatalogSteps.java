@@ -160,6 +160,12 @@ public class CatalogSteps {
     @Then("Book {string} is not present in My Books")
     public void checkBookIsNotPresentInMyBooks(String bookInfoKey) {
         BookInfo bookInfo = context.get(bookInfoKey);
-        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> !subcategoryPage.isBookPresent(bookInfo), "Book is still present on My books page");
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> !subcategoryPage.isBookPresent(bookInfo), "Book is still present on My books page"));
+    }
+
+    @And("I cancel book {string} reservation")
+    public void cancelBookReservation(String bookInfoKey) {
+        BookInfo book = context.get(bookInfoKey);
+        subcategoryPage.cancelReservationForBook(book);
     }
 }
