@@ -77,7 +77,7 @@ public class SubcategoryPage extends Form {
         IButton btnOpenBookWithGivenButton = getElementFactory().getButton(By.xpath(String.format("//div[./button[contains(text(),'%s')]]//following-sibling::div/a", bookActionButtons.getAction())), "View book details");
         if (!btnOpenBookWithGivenButton.state().isDisplayed()) {
             AqualityServices.getConditionalWait().waitFor(() -> {
-                btnViewMore.state().waitForClickable();
+                btnViewMore.state().waitForDisplayed();
                 btnViewMore.click();
                 return btnOpenBookWithGivenButton.state().isDisplayed();
             }, Duration.ofSeconds(BookConstants.BOOK_SEARCH.getTimeout()));
