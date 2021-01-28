@@ -9,11 +9,13 @@ import org.testng.Assert;
 import pages.Header;
 import pages.SearchResultPage;
 import pages.SingInModal;
+import pages.SubcategoryPage;
 
 public class HeaderSteps {
     private final Header header = new Header();
     private final SingInModal singInModal = new SingInModal();
     private final SearchResultPage searchResultPage = new SearchResultPage();
+    private final SubcategoryPage subcategoryPage = new SubcategoryPage();
 
     @When("I login to the {string}")
     public void login(String libraryName) {
@@ -38,5 +40,16 @@ public class HeaderSteps {
     public void searchForBook(String searchItem) {
         header.searchFor(searchItem);
         searchResultPage.state().waitForDisplayed();
+    }
+
+    @When("I open My books")
+    public void openMyBooks() {
+        header.openMyBooks();
+    }
+
+    @When("I open main library page")
+    public void openMainLibraryPage() {
+        subcategoryPage.state().waitForDisplayed();
+        header.openMainPage();
     }
 }

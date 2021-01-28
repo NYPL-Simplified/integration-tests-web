@@ -15,6 +15,7 @@ public class Header extends Form {
     private final IButton signOutBtn = getElementFactory().getButton(
             By.xpath(String.format(LOGIN_LOGOUT_BTN_LOC, HeaderPageConstants.SIGN_OUT)), HeaderPageConstants.SIGN_OUT);
     private final IButton btnSearch = getElementFactory().getButton(By.xpath("//form[@role='search']/button"), "Search");
+    private final IButton btnLogo = getElementFactory().getButton(By.xpath("//a/img"), "Main page");
     private final IButton btnMyBooks =
             getElementFactory().getButton(By.xpath(String.format(BREADCRUMB_XPATH_PATTERN, "My Books")), "My Books");
     private final ITextBox txbSearchItem = getElementFactory().getTextBox(By.id("search-bar"), "Search bar");
@@ -51,5 +52,9 @@ public class Header extends Form {
 
     public void openMyBooks() {
         btnMyBooks.click();
+    }
+
+    public void openMainPage() {
+        btnLogo.click();
     }
 }

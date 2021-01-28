@@ -82,7 +82,7 @@ public class SubcategoryPage extends Form {
                 getElementFactory().getButton(By.xpath(String.format(BOOK_WITH_GIVEN_BUTTON_LOCATOR_XPATH_PATTERN, bookActionButtons.getAction())), "View book details");
         if (!btnOpenBookWithGivenButton.state().isDisplayed()) {
             AqualityServices.getConditionalWait().waitFor(() -> {
-                btnViewMore.state().waitForClickable();
+                btnViewMore.state().waitForDisplayed();
                 btnViewMore.click();
                 return btnOpenBookWithGivenButton.state().isDisplayed();
             }, Duration.ofSeconds(BookConstants.BOOK_SEARCH.getTimeout()));
