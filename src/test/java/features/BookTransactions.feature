@@ -53,9 +53,6 @@ Feature: Book Transactions
 
   @tier1 @logout @desktop
   Scenario: Download (My Books)
-    When I open the book details for book with button BORROW and save it as 'bookInfo'
-      And I click BORROW book action button
-    Then Check that download book button is present
     When I open My books
-      And I download book 'bookInfo'
-    Then Check the book was downloaded successfully
+      And I download book and save it as 'bookInfo'
+    Then Check the book 'bookInfo' was downloaded successfully

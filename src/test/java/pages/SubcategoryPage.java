@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SubcategoryPage extends Form {
-    private static final String DOWNLOAD_BUTTON_XPATH_LOCATOR_PATTERN =
-            "//li[@aria-label='Book: %1$s']//button[contains(text(), 'Download')]";
     private static final String BOOK_WITH_GIVEN_BUTTON_LOCATOR_XPATH_PATTERN =
             "//div[./button[contains(text(),'%s')]]//following-sibling::div/a";
     private static final String BOOK_XPATH_LOCATOR_PATTERN = "//h2[./a[contains(@aria-label,'%1$s')]]";
@@ -37,6 +35,11 @@ public class SubcategoryPage extends Form {
     private IButton btnViewFirstBookDetails =
             getElementFactory().getButton(By.xpath("//div//a[contains(text(),'Read more')]"), "View first book details");
     private IButton btnViewMore = getElementFactory().getButton(By.xpath("//button[contains(text(),'View more')]"), "View more");
+    private IButton btnDownloadName =
+            getElementFactory().getButton(By.xpath("//li[contains(@aria-label,'Book: ') and .//button[contains(text(), 'Download')]]//a[not(contains(@aria-label, 'View'))]"), "Download name");
+    private IButton btnDownloadAuthor =
+            getElementFactory().getButton(By.xpath("//li[contains(@aria-label,'Book: ') and .//button[contains(text(), 'Download')]]//span[@aria-label='Authors']"), "Download author");
+    private IButton btnDownload = getElementFactory().getButton(By.xpath("//button[contains(text(), 'Download')]"), "Download");
 
     public SubcategoryPage() {
         super(By.id("facet-selector-Sort by"), "Subcategory");
@@ -90,9 +93,13 @@ public class SubcategoryPage extends Form {
         btnOpenBookWithGivenButton.click();
     }
 
-    public void downloadBook(BookInfo book) {
-        String title = book.getTitle();
-        getElementFactory().getButton(By.xpath(String.format(DOWNLOAD_BUTTON_XPATH_LOCATOR_PATTERN, title)), title).click();
+    public BookInfo downloadBook() {
+        state().waitForDisplayed();
+        BookInfo bookInfo = new BookInfo();
+        bookInfo.setTitle(btnDownloadName.getAttribute("aria-label"));
+        bookInfo.setAuthor(btnDownloadAuthor.getText());
+        btnDownload.click();
+        return bookInfo;
     }
 
     private List<String> getListOfTextValues(List<IElement> list) {

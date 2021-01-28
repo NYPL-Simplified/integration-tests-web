@@ -169,9 +169,8 @@ public class CatalogSteps {
         subcategoryPage.cancelReservationForBook(book);
     }
 
-    @When("I download book {string}")
+    @When("I download book and save it as {string}")
     public void downloadBook(String bookInfoKey) {
-        BookInfo book = context.get(bookInfoKey);
-        subcategoryPage.downloadBook(book);
+        context.add(bookInfoKey, subcategoryPage.downloadBook());
     }
 }
