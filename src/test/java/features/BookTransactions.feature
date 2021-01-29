@@ -50,3 +50,9 @@ Feature: Book Transactions
     When I open My books
       And I cancel book 'bookInfo' reservation
     Then Book 'bookInfo' is not present in My Books
+
+  @tier1 @logout @desktop
+  Scenario: Download (My Books)
+    When I open My books
+      And I download book and save it as 'bookInfo'
+    Then Check the book 'bookInfo' was downloaded successfully
