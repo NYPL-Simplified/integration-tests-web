@@ -5,13 +5,13 @@ Feature: Book Transactions
     When I login to the 'LYRASIS'
     Then Login is performed successfully
 
-  @tier1 @logout @desktop @test
+  @tier1 @logout @desktop @cancelBorrow
   Scenario: Check-out (Book Detail View)
     When I open random book page
       And I click BORROW book action button
     Then Check that download book button is present
 
-  @tier1 @logout @desktop
+  @tier1 @logout @desktop @cancelBorrow
   Scenario: Download (Book Detail View)
     When I open random book page
       And I click BORROW book action button
@@ -19,7 +19,7 @@ Feature: Book Transactions
     When I download book
     Then Check the book was downloaded successfully
 
-  @tier1 @logout @desktop
+  @tier1 @logout @desktop @cancelBorrow
   Scenario: Return (Book Detail View)
     When I open random book page
       And I click BORROW book action button

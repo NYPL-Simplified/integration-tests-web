@@ -3,10 +3,12 @@ package hooks;
 import aquality.selenium.browser.AqualityServices;
 import com.google.inject.Inject;
 import constants.context.ContextLibrariesKeys;
+import constants.pages.BookActionButtons;
 import framework.utilities.ScenarioContext;
 import io.cucumber.java.After;
 import models.BookInfo;
 import org.testng.Assert;
+import pages.BookPage;
 import pages.Header;
 import pages.SingOutModal;
 import pages.SubcategoryPage;
@@ -18,6 +20,7 @@ public class LogoutHooks {
     private final Header header = new Header();
     private final SingOutModal singOutModal = new SingOutModal();
     private final SubcategoryPage subcategoryPage = new SubcategoryPage();
+    private final BookPage bookPage = new BookPage();
     private ScenarioContext context;
 
     @Inject
@@ -44,6 +47,24 @@ public class LogoutHooks {
                 books.forEach(book -> {
                     subcategoryPage.cancelReservationForBook(book);
                     AqualityServices.getConditionalWait().waitFor(() -> !subcategoryPage.isBookPresent(book));
+                }));
+    }
+
+    @After(value = "@cancelBorrow", order = 3)
+    public void cancelBorrow() {
+        AqualityServices.getLogger().info("Test finished - canceling return");
+        List<BookInfo> booksForCancel = context.get(ContextLibrariesKeys.CANCEL_BORROW);
+        header.openMyBooks();
+        Optional.ofNullable(booksForCancel).ifPresent(books ->
+                books.forEach(book -> {
+                    AqualityServices.getConditionalWait().waitFor(() -> !subcategoryPage.isBookPresent(book));
+                    if (subcategoryPage.isBookPresent(book)) {
+                        subcategoryPage.openBook(book);
+                        if (bookPage.isActionBtnVisible(BookActionButtons.RETURN)) {
+                            bookPage.clickBookActionButton(BookActionButtons.RETURN);
+                            AqualityServices.getConditionalWait().waitFor(() -> !bookPage.isActionBtnVisible(BookActionButtons.RETURN));
+                        }
+                    }
                 }));
     }
 }

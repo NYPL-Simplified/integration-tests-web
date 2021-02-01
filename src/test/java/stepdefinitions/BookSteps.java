@@ -36,10 +36,13 @@ public class BookSteps {
 
     @When("I click {} book action button")
     public void clickBookActionButton(BookActionButtons action) {
-        bookPage.clickBookActionButton(action);
         if (action == BookActionButtons.RESERVE) {
             saveBookInContext(ContextLibrariesKeys.CANCEL_HOLD, bookPage.getBookInfo());
         }
+        if (action == BookActionButtons.BORROW) {
+            saveBookInContext(ContextLibrariesKeys.CANCEL_BORROW, bookPage.getBookInfo());
+        }
+        bookPage.clickBookActionButton(action);
     }
 
     @When("I download book")
