@@ -25,12 +25,8 @@ public class SubcategoryPage extends Form {
             "/parent::div/following-sibling::button[contains(text(),'%2$s')]";
     private static final String BOOK_TITLES_LOCATOR_XPATH = "//li//h2";
     private static final String AUTHORS_XPATH_LOCATOR = "//span[@aria-label='Authors']";
-
-    private static final String BOOK_TITLES_XPATH_LOCATOR = "//li//h2";
-    private static final String AUTHORS_XPATH_LOCATOR = "//span[@aria-label='Authors']";
-    private static final String ACTION_BUTTON_OF_BOOK_WITH_GIVEN_TITLE_XPATH_LOCATOR_PATTERN = "//h2[./a[contains(@aria-label,'%1$s')]]/parent::div/following-sibling::button[contains(text(),'%2$s')]";
     private static final String BOOK_NAME_LOCATOR_PATTERN = "//h2[./a[contains(@aria-label,'%1$s')]]";
-    private static final String BOOK_WITH_GIVEN_BUTTON = "//div[./button[contains(text(),'%s')]]//following-sibling::div/a";
+
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
     private IComboBox cmbSortByFormat = getElementFactory().getComboBox(By.id("facet-selector-Formats"), "Sort by format");
     private ILabel lblFirstBookTitle = getElementFactory().getLabel(By.xpath("//div//h2"), "First book title");
@@ -101,34 +97,26 @@ public class SubcategoryPage extends Form {
     public BookInfo downloadBook() {
         state().waitForDisplayed();
         BookInfo bookInfo = new BookInfo();
-        bookInfo.setTitle(btnDownloadName.getAttribute("aria-label"));
+        bookInfo.setTitle(btnDownloadName.getAttribute(ElementAttributesConstants.ARIA_LABEL_ATTRIBUTE));
         bookInfo.setAuthor(btnDownloadAuthor.getText());
         btnDownload.click();
         return bookInfo;
-    }
-
-    private List<String> getListOfTextValues(List<IElement> list) {
-        return list.stream().map(IElement::getText).collect(Collectors.toList());
-    }
-
-    private List<IElement> getListOfElements(String s) {
-        return getElementFactory().findElements(By.xpath(s), ElementType.LABEL);
     }
 
     public void openBook(BookInfo bookInfo) {
         getBookNameButton(bookInfo).click();
     }
 
-    private IButton getBookNameButton(BookInfo bookInfo) {
-        String title = bookInfo.getTitle();
-        return getElementFactory().getButton(By.xpath(String.format(BOOK_NAME_LOCATOR_PATTERN, title)), title);
-    }
-
     private List<String> getListOfTextValues(List<IElement> list) {
         return list.stream().map(IElement::getText).collect(Collectors.toList());
     }
 
     private List<IElement> getListOfElements(String s) {
         return getElementFactory().findElements(By.xpath(s), ElementType.LABEL);
+    }
+
+    private IButton getBookNameButton(BookInfo bookInfo) {
+        String title = bookInfo.getTitle();
+        return getElementFactory().getButton(By.xpath(String.format(BOOK_NAME_LOCATOR_PATTERN, title)), title);
     }
 }
