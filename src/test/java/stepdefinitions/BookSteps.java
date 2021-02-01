@@ -4,6 +4,8 @@ import aquality.selenium.browser.AqualityServices;
 import com.google.inject.Inject;
 import constants.context.ContextLibrariesKeys;
 import constants.pages.BookActionButtons;
+import constants.pages.BookTypeFormatMatch;
+import constants.pages.StringConstants;
 import framework.utilities.FileUtils;
 import framework.utilities.ScenarioContext;
 import io.cucumber.java.DataTableType;
@@ -13,12 +15,15 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import models.BookDetailsScreenInformationBlock;
 import models.BookInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import pages.BookPage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BookSteps {
     private final BookPage bookPage = new BookPage();
@@ -122,6 +127,17 @@ public class BookSteps {
     public void checkMessageAboutPatronsInTheQueueIsPresent(String message) {
         Assert.assertTrue(bookPage.getPatronMessage().contains(message),
                 String.format("Queue status is not correct. Expected '%s', actual - '%s'", message, bookPage.getPatronMessage()));
+    }
+
+    @Then("Check the book {string} was downloaded successfully")
+    public void checkTheBookBookInfoWasDownloadedSuccessfully(String bookInfoKey) {
+        BookInfo book = context.get(bookInfoKey);
+        Assert.assertTrue(FileUtils.isFileContainingNameDownloaded(Arrays.stream(book.getTitle().split(StringUtils.SPACE))
+                        .map(String::toLowerCase)
+                        .collect(Collectors.joining(StringConstants.FILE_NAME_DELIMITER))
+                        + StringConstants.FILE_EXTENSION_DELIMITER
+                        + BookTypeFormatMatch.EPUB.getFileFormat()),
+                "The book was not downloaded successfully");
     }
 
     private void saveBookInContext(String key, BookInfo bookName) {
