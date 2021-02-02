@@ -19,11 +19,13 @@ public class HeaderSteps {
 
     @When("I login to the {string}")
     public void login(String libraryName) {
-        Credentials credentials = Configuration.getCredentials(libraryName);
         header.openSignInModal();
-        singInModal.setLogin(credentials.getBarcode());
-        singInModal.setPassword(credentials.getPin());
-        singInModal.applyLogin();
+        loginWithCredentials(libraryName);
+    }
+
+    @When("I login using {string} credentials")
+    public void loginUsingCredentials(String libraryName) {
+        loginWithCredentials(libraryName);
     }
 
     @Then("Login is performed successfully")
@@ -51,5 +53,12 @@ public class HeaderSteps {
     public void openMainLibraryPage() {
         subcategoryPage.state().waitForDisplayed();
         header.openMainPage();
+    }
+
+    private void loginWithCredentials(String libraryName) {
+        Credentials credentials = Configuration.getCredentials(libraryName);
+        singInModal.setLogin(credentials.getBarcode());
+        singInModal.setPassword(credentials.getPin());
+        singInModal.applyLogin();
     }
 }
