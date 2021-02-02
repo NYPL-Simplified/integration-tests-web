@@ -7,13 +7,17 @@ Feature: Book Transactions
 
   @tier1 @logout @desktop @test
   Scenario: Check-out (Book Detail View)
-    When I open random book page
+    When I open 'Young Adult Fiction' category
+      And I open 'All Young Adult Fiction' category
+      And I open the book details for book with button BORROW and save it as 'bookInfo'
       And I click BORROW book action button
     Then Check that download book button is present
 
   @tier1 @logout @desktop
   Scenario: Download (Book Detail View)
-    When I open random book page
+    When I open 'Fiction' category
+      And I open 'All Fiction' category
+      And I open the book details for book with button BORROW and save it as 'bookInfo'
       And I click BORROW book action button
     Then Check that download book button is present
     When I download book
@@ -21,7 +25,9 @@ Feature: Book Transactions
 
   @tier1 @logout @desktop
   Scenario: Return (Book Detail View)
-    When I open random book page
+    When I open 'Nonfiction' category
+      And I open 'All Nonfiction' category
+      And I open the book details for book with button BORROW and save it as 'bookInfo'
       And I click BORROW book action button
     Then Check that download book button is present
     When I click RETURN book action button
