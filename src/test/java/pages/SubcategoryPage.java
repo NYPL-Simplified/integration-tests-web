@@ -107,6 +107,10 @@ public class SubcategoryPage extends Form {
         getBookNameButton(bookInfo).click();
     }
 
+    public void openBook(String bookName) {
+        getBookNameButton(bookName).click();
+    }
+
     private List<String> getListOfTextValues(List<IElement> list) {
         return list.stream().map(IElement::getText).collect(Collectors.toList());
     }
@@ -116,7 +120,10 @@ public class SubcategoryPage extends Form {
     }
 
     private IButton getBookNameButton(BookInfo bookInfo) {
-        String title = bookInfo.getTitle();
-        return getElementFactory().getButton(By.xpath(String.format(BOOK_NAME_LOCATOR_PATTERN, title)), title);
+        return getBookNameButton(bookInfo.getTitle());
+    }
+
+    private IButton getBookNameButton(String bookName) {
+        return getElementFactory().getButton(By.xpath(String.format(BOOK_NAME_LOCATOR_PATTERN, bookName)), bookName);
     }
 }

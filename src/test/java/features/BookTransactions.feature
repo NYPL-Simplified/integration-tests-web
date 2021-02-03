@@ -61,28 +61,16 @@ Feature: Book Transactions
   Scenario Outline: Borrow book from publisher
     When I search for '<bookName>' book
       And I switch to '<bookType>' book type in search result
-      And I borrow book if its possible
+      And I open first book with name equal to '<bookType>'
+      And I click BORROW book action button
     Then Following buttons are present:
-      | readyToReadOnSimplyEMessage   | readOnline   | downloadAdobeACSM   | openODWebReader   | readyToListenOnSimplyEMessage   | downloadEPUB   |
-      | <readyToReadOnSimplyEMessage> | <readOnline> | <downloadAdobeACSM> | <openODWebReader> | <readyToListenOnSimplyEMessage> | <downloadEPUB> |
+      | readyToReadOnSimplyEMessage   | downloadAdobeACSM   | readyToListenOnSimplyEMessage   | downloadEPUB   |
+      | <readyToReadOnSimplyEMessage> | <downloadAdobeACSM> | <readyToListenOnSimplyEMessage> | <downloadEPUB> |
 
     Scenarios:
-      | libraryName                           | bookType  | bookName | readyToReadOnSimplyEMessage | readOnline | downloadAdobeACSM | openODWebReader | readyToListenOnSimplyEMessage | downloadEPUB |
-      | Overdrive                             | Ebook     |          | true                        | true       | true              | false           | false                         | false        |
-      | Overdrive                             | Audiobook |          | true                        | false      | false             | false           | false                         | false        |
-      | Overdrive Read Online                 |           |          | false                       | false      | false             | true            | false                         | false        |
-      | Axis 360                              | Ebook     |          | true                        | false      | true              | false           | false                         | false        |
-      | Axis 360                              | Audiobook |          | false                       | false      | false             | false           | true                          | false        |
-      | Bibliotheca                           | Ebook     |          | true                        | false      | true              | false           | false                         | false        |
-      | Bibliotheca                           | Audiobook |          | false                       | false      | false             | false           | true                          | false        |
-      | DPLA Exchange                         | Ebook     |          | true                        | false      | true              | false           | false                         | false        |
-      | DPLA Exchange                         | Audiobook |          | false                       | false      | false             | false           | true                          | false        |
-      | Biblioboard                           | Ebook     |          | true                        | false      | true              | false           | false                         | false        |
-      | ProQuest Ebook (DRM)                  |           |          | true                        | false      | true              | false           | false                         | false        |
-      | ProQuest Ebook (DRM Free)             |           |          | true                        | false      | false             | false           | false                         | true         |
-      | Self Hosted Content (Access Control)  |           |          | true                        | false      | false             | false           | false                         | true         |
-      | Internet Archive Hosted (open access) |           |          | true                        | false      | false             | false           | false                         | true         |
-      | Knowlege Unlatched (Open Acces)       |           |          | true                        | false      | false             | false           | false                         | true         |
-      | Open Bookshelf (Open Acces)           |           |          | true                        | false      | false             | false           | false                         | true         |
-      | Fulcrum (Open Acces)                  |           |          | true                        | false      | false             | false           | false                         | true         |
-      | Self Curated OPDS (Static Feeds)      |           |          | true                        | false      | false             | false           | false                         | true         |
+      | libraryName                  | bookType  | bookName | readyToReadOnSimplyEMessage | downloadAdobeACSM | readyToListenOnSimplyEMessage | downloadEPUB |
+      | Axis 360                     | Ebook     |          | true                        | true              | false                         | false        |
+      | Axis 360                     | Audiobook |          | false                       | false             | true                          | false        |
+      | DPLA Exchange                | Ebook     |          | true                        | true              | false                         | false        |
+      | DPLA Exchange                | Audiobook |          | false                       | false             | true                          | false        |
+      | Open Bookshelf (Open Access) | Ebook     |          | true                        | false             | false                         | true         |
