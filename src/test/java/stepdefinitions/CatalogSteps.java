@@ -178,4 +178,11 @@ public class CatalogSteps {
     public void iOpenFirstBookWithNameEqualToBookType(String bookName) {
         subcategoryPage.openBook(bookName);
     }
+
+    @And("I {} book if it's possible")
+    public void performActionOnBookIfItSPossible(BookActionButtons actionButton) {
+        if (bookPage.isActionButtonVisible(actionButton)) {
+            bookPage.clickBookActionButton(actionButton);
+        }
+    }
 }

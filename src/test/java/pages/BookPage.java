@@ -35,6 +35,10 @@ public class BookPage extends Form {
     private final ILabel lblStatus = getElementFactory().getLabel(By.xpath(LBL_STATUS_XPATH_LOCATOR), "Status");
     private final ILabel lblQueue =
             getElementFactory().getLabel(By.xpath(String.format("(%s)[2]", LBL_STATUS_XPATH_LOCATOR)), "Queue status");
+    private final ILabel lblReadyToReadOnSimplyEMessage =
+            getElementFactory().getLabel(By.xpath("//span[contains(text(), 'Ready to Read in SimplyE!')]"), "Ready to read on simplyE message");
+    private final ILabel lblReadyToListenOnSimplyEMessage =
+            getElementFactory().getLabel(By.xpath("//span[contains(text(), 'Ready to Listen in SimplyE!')]"), "Ready to listen on simplyE message");
 
     public BookPage() {
         super(By.xpath(BOOK_INFO_LOC), "Book page");
@@ -44,7 +48,7 @@ public class BookPage extends Form {
         getActionButton(action).click();
     }
 
-    public boolean isActionBtnVisible(BookActionButtons action) {
+    public boolean isActionButtonVisible(BookActionButtons action) {
         return getActionButton(action).state().waitForDisplayed();
     }
 
@@ -100,5 +104,13 @@ public class BookPage extends Form {
 
     private IButton getActionButton(BookActionButtons action) {
         return getElementFactory().getButton(By.xpath(String.format(BOOK_ACTION_BUTTON, action.getAction())), action.getAction());
+    }
+
+    public boolean isReadyToReadOnSimplyEMessagePresent() {
+        return lblReadyToReadOnSimplyEMessage.state().isDisplayed();
+    }
+
+    public boolean isReadyToListenOnSimplyEMessagePresent() {
+        return lblReadyToListenOnSimplyEMessage.state().isDisplayed();
     }
 }

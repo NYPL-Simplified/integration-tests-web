@@ -31,10 +31,10 @@ public class LogoutHooks {
     @After(value = "@logout", order = 2)
     public void closeApplication() {
         AqualityServices.getLogger().info("Test finished - logging out");
-        if (header.isSignOutBtnVisible()) {
+        if (header.isSignOutButtonVisible()) {
             header.openSignOutModal();
             singOutModal.clickSignOut();
-            Assert.assertTrue(header.isSignInBtnVisible(), "Sign out was not completed or completed incorrect");
+            Assert.assertTrue(header.isSignInButtonVisible(), "Sign out was not completed or completed incorrect");
         }
     }
 
@@ -60,9 +60,9 @@ public class LogoutHooks {
                     AqualityServices.getConditionalWait().waitFor(() -> !subcategoryPage.isBookPresent(book));
                     if (subcategoryPage.isBookPresent(book)) {
                         subcategoryPage.openBook(book);
-                        if (bookPage.isActionBtnVisible(BookActionButtons.RETURN)) {
+                        if (bookPage.isActionButtonVisible(BookActionButtons.RETURN)) {
                             bookPage.clickBookActionButton(BookActionButtons.RETURN);
-                            AqualityServices.getConditionalWait().waitFor(() -> !bookPage.isActionBtnVisible(BookActionButtons.RETURN));
+                            AqualityServices.getConditionalWait().waitFor(() -> !bookPage.isActionButtonVisible(BookActionButtons.RETURN));
                         }
                     }
                 }));

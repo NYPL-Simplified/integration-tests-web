@@ -30,7 +30,7 @@ public class HeaderSteps {
 
     @Then("Login is performed successfully")
     public void checkThatLoginIsPerformedSuccessfully() {
-        Assert.assertTrue(header.isSignOutBtnVisible(), "Login was not performed successfully");
+        Assert.assertTrue(header.isSignOutButtonVisible(), "Login was not performed successfully");
     }
 
     @And("I open {string} item from breadcrumbs")

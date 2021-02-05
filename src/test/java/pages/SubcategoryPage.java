@@ -25,7 +25,7 @@ public class SubcategoryPage extends Form {
             "/parent::div/following-sibling::button[contains(text(),'%2$s')]";
     private static final String BOOK_TITLES_LOCATOR_XPATH = "//li//h2";
     private static final String AUTHORS_XPATH_LOCATOR = "//span[@aria-label='Authors']";
-    private static final String BOOK_NAME_LOCATOR_PATTERN = "//h2[./a[contains(@aria-label,'%1$s')]]";
+    private static final String BOOK_NAME_LOCATOR_PATTERN = "//h2[./a[contains(@aria-label,\"%1$s\")]]";
 
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
     private IComboBox cmbSortByFormat = getElementFactory().getComboBox(By.id("facet-selector-Formats"), "Sort by format");

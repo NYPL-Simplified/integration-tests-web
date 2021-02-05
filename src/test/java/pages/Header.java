@@ -7,13 +7,13 @@ import constants.pages.HeaderPageConstants;
 import org.openqa.selenium.By;
 
 public class Header extends Form {
-    private static final String LOGIN_LOGOUT_BTN_LOC = "//*[text()='%1$s']";
+    private static final String LOGIN_LOGOUT_BUTTON_LOC = "//*[text()='%1$s']";
     private static final String BREADCRUMB_XPATH_PATTERN = "//a[contains(text(),'%s')]";
 
-    private final IButton signInBtn = getElementFactory().getButton(
-            By.xpath(String.format(LOGIN_LOGOUT_BTN_LOC, HeaderPageConstants.SIGN_IN)), HeaderPageConstants.SIGN_IN);
-    private final IButton signOutBtn = getElementFactory().getButton(
-            By.xpath(String.format(LOGIN_LOGOUT_BTN_LOC, HeaderPageConstants.SIGN_OUT)), HeaderPageConstants.SIGN_OUT);
+    private final IButton btnSignIn =
+            getElementFactory().getButton(By.xpath(String.format(LOGIN_LOGOUT_BUTTON_LOC, HeaderPageConstants.SIGN_IN)), HeaderPageConstants.SIGN_IN);
+    private final IButton btnSignOut =
+            getElementFactory().getButton(By.xpath(String.format(LOGIN_LOGOUT_BUTTON_LOC, HeaderPageConstants.SIGN_OUT)), HeaderPageConstants.SIGN_OUT);
     private final IButton btnSearch = getElementFactory().getButton(By.xpath("//form[@role='search']/button"), "Search");
     private final IButton btnLogo = getElementFactory().getButton(By.xpath("//a/img"), "Main page");
     private final IButton btnMyBooks =
@@ -25,19 +25,19 @@ public class Header extends Form {
     }
 
     public void openSignInModal() {
-        signInBtn.click();
+        btnSignIn.click();
     }
 
     public void openSignOutModal() {
-        signOutBtn.click();
+        btnSignOut.click();
     }
 
-    public boolean isSignInBtnVisible() {
-        return signInBtn.state().waitForDisplayed();
+    public boolean isSignInButtonVisible() {
+        return btnSignIn.state().waitForDisplayed();
     }
 
-    public boolean isSignOutBtnVisible() {
-        return signOutBtn.state().waitForDisplayed();
+    public boolean isSignOutButtonVisible() {
+        return btnSignOut.state().waitForDisplayed();
     }
 
     public void openBreadcrumb(String breadcrumbItemName) {
