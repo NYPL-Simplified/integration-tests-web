@@ -62,3 +62,23 @@ Feature: Book Transactions
     When I open My books
       And I download book and save it as 'bookInfo'
     Then Check the book 'bookInfo' was downloaded successfully
+
+  @tier1 @logout @desktop @cancelBorrow
+  Scenario Outline: Borrow book from publisher
+    When I search for '<bookName>' book
+      And I switch to '<bookType>' book type in search result
+      And I open first book with name equal to '<bookName>'
+      And I BORROW book if it's possible
+    Then Following buttons are present:
+      | readyToReadOnSimplyEMessage   | <readyToReadOnSimplyEMessage>   |
+      | downloadAdobeACSM             | <downloadAdobeACSM>             |
+      | readyToListenOnSimplyEMessage | <readyToListenOnSimplyEMessage> |
+      | downloadEPUB                  | <downloadEPUB>                  |
+
+    Scenarios:
+      | libraryName   | bookType  | bookName                        | readyToReadOnSimplyEMessage | downloadAdobeACSM | readyToListenOnSimplyEMessage | downloadEPUB |
+      | Axis 360      | Ebook     | Broken Wing                     | true                        | true              | false                         | false        |
+      | Axis 360      | Audiobook | Ladies\' Night                  | false                       | false             | true                          | false        |
+      | DPLA Exchange | Ebook     | Have Black Lives Ever Mattered? | true                        | true              | false                         | false        |
+      | DPLA Exchange | Audiobook | The Lost Book of Adana Moreau   | false                       | false             | true                          | false        |
+      #| Open Bookshelf (Open Access) | Ebook     |                                 | true                        | false             | false                         | true         |

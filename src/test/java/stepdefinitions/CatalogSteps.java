@@ -173,4 +173,16 @@ public class CatalogSteps {
     public void downloadBook(String bookInfoKey) {
         context.add(bookInfoKey, subcategoryPage.downloadBook());
     }
+
+    @And("I open first book with name equal to {string}")
+    public void iOpenFirstBookWithNameEqualToBookType(String bookName) {
+        subcategoryPage.openBook(bookName);
+    }
+
+    @And("I {} book if it's possible")
+    public void performActionOnBookIfItSPossible(BookActionButtons actionButton) {
+        if (bookPage.isActionButtonVisible(actionButton)) {
+            bookPage.clickBookActionButton(actionButton);
+        }
+    }
 }

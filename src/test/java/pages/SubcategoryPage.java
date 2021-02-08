@@ -25,7 +25,7 @@ public class SubcategoryPage extends Form {
             "/parent::div/following-sibling::button[contains(text(),'%2$s')]";
     private static final String BOOK_TITLES_LOCATOR_XPATH = "//li//h2";
     private static final String AUTHORS_XPATH_LOCATOR = "//span[@aria-label='Authors']";
-    private static final String BOOK_NAME_LOCATOR_PATTERN = "//h2[./a[contains(@aria-label,'%1$s')]]";
+    private static final String BOOK_NAME_LOCATOR_PATTERN = "//h2[./a[contains(@aria-label,\"%1$s\")]]";
 
     private ILabel lblPageName = getElementFactory().getLabel(By.xpath("//h1"), "Header");
     private IComboBox cmbSortByFormat = getElementFactory().getComboBox(By.id("facet-selector-Formats"), "Sort by format");
@@ -107,6 +107,10 @@ public class SubcategoryPage extends Form {
         getBookNameButton(bookInfo).click();
     }
 
+    public void openBook(String bookName) {
+        getBookNameButton(bookName).click();
+    }
+
     private List<String> getListOfTextValues(List<IElement> list) {
         return list.stream().map(IElement::getText).collect(Collectors.toList());
     }
@@ -116,7 +120,10 @@ public class SubcategoryPage extends Form {
     }
 
     private IButton getBookNameButton(BookInfo bookInfo) {
-        String title = bookInfo.getTitle();
-        return getElementFactory().getButton(By.xpath(String.format(BOOK_NAME_LOCATOR_PATTERN, title)), title);
+        return getBookNameButton(bookInfo.getTitle());
+    }
+
+    private IButton getBookNameButton(String bookName) {
+        return getElementFactory().getButton(By.xpath(String.format(BOOK_NAME_LOCATOR_PATTERN, bookName)), bookName);
     }
 }

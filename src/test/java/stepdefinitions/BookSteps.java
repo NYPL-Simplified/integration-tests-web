@@ -15,8 +15,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import models.BookDetailsScreenInformationBlock;
 import models.BookInfo;
+import models.BookLabelsVisibility;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 import pages.BookPage;
 
 import java.util.ArrayList;
@@ -52,7 +54,7 @@ public class BookSteps {
 
     @When("I download book")
     public void downloadBook() {
-        if (bookPage.isActionBtnVisible(BookActionButtons.DOWNLOAD_EPUB)) {
+        if (bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB)) {
             bookPage.clickBookActionButton(BookActionButtons.DOWNLOAD_EPUB);
         } else {
             bookPage.clickBookActionButton(BookActionButtons.DOWNLOAD_EPUB_ADOBE);
@@ -61,12 +63,12 @@ public class BookSteps {
 
     @Then("Check that {} book button appeared")
     public void checkThatBookActionButtonAppeared(BookActionButtons action) {
-        Assert.assertTrue(bookPage.isActionBtnVisible(action), "Download book button appeared");
+        Assert.assertTrue(bookPage.isActionButtonVisible(action), "Download book button appeared");
     }
 
     @Then("Check that download book button is present")
     public void checkThatDownloadBookActionButtonAppeared() {
-        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> bookPage.isActionBtnVisible(BookActionButtons.DOWNLOAD_EPUB) || bookPage.isActionBtnVisible(BookActionButtons.DOWNLOAD_EPUB_ADOBE)), "Download book button appeared");
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB) || bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB_ADOBE)), "Download book button appeared");
     }
 
     @Then("Check the book was downloaded successfully")
@@ -147,5 +149,16 @@ public class BookSteps {
 
         listOfLibraries.add(bookName);
         context.add(key, listOfLibraries);
+    }
+
+    @Then("Following buttons are present:")
+    public void checkFollowingButtonsArePresent(List<BookLabelsVisibility> expectedValues) {
+        BookLabelsVisibility visibility = expectedValues.get(0);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(bookPage.isReadyToReadOnSimplyEMessagePresent(), visibility.isReadyToReadOnSimplyEMessage(), "Ready To Read On SimplyE Message" + " label/button is not in expected state");
+        softAssert.assertEquals(bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB_ADOBE), visibility.isDownloadAdobeACSM(), "Download Adobe SCM" + " label/button is not in expected state");
+        softAssert.assertEquals(bookPage.isReadyToListenOnSimplyEMessagePresent(), visibility.isReadyToReadOnSimplyEMessage(), "Ready To Listen On SimplyE" + " label/button is not in expected state");
+        softAssert.assertEquals(bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB), visibility.isDownloadEPUB(), "Download EPUB" + " label/button is not in expected state");
+        softAssert.assertAll();
     }
 }
