@@ -64,17 +64,15 @@ Feature: Book Transactions
       And I open first book with name equal to '<bookName>'
       And I BORROW book if it's possible
     Then Following buttons are present:
-      | readyToReadOnSimplyEMessage   | <readyToReadOnSimplyEMessage>   |
-      | downloadAdobeACSM             | <downloadAdobeACSM>             |
-      | readyToListenOnSimplyEMessage | <readyToListenOnSimplyEMessage> |
-      | downloadEPUB                  | <downloadEPUB>                  |
+      | readyToReadOnSimplyEMessage   | downloadAdobeACSM   | readyToListenOnSimplyEMessage   | downloadEPUB   |
+      | <readyToReadOnSimplyEMessage> | <downloadAdobeACSM> | <readyToListenOnSimplyEMessage> | <downloadEPUB> |
 
     Scenarios:
-      | libraryName   | bookType  | bookName                                | readyToReadOnSimplyEMessage | downloadAdobeACSM | readyToListenOnSimplyEMessage | downloadEPUB |
-      | Axis 360      | Ebook     | Broken Wing                             | true                        | true              | false                         | false        |
-      | Axis 360      | Audiobook | Ladies\' Night                          | false                       | false             | true                          | false        |
-      | DPLA Exchange | Ebook     | Have Black Lives Ever Mattered?         | true                        | true              | false                         | false        |
-      | DPLA Exchange | Audiobook | The Lost Book of Adana Moreau           | false                       | false             | true                          | false        |
-      #| Bibliotheca   | Ebook     |            | false                       | false             | true                          | false        |
-      | Bibliotheca   | Audiobook | Highlights of the Perfect Sales Process | false                       | false             | true                          | false        |
+      | libraryName   | bookType  | bookName                                    | readyToReadOnSimplyEMessage | downloadAdobeACSM | readyToListenOnSimplyEMessage | downloadEPUB |
+      | Axis 360      | Ebook     | Broken Wing                                 | true                        | true              | false                         | false        |
+      | Axis 360      | Audiobook | Ladies\' Night                              | false                       | false             | true                          | false        |
+      | DPLA Exchange | Ebook     | Have Black Lives Ever Mattered?             | true                        | true              | false                         | false        |
+      | DPLA Exchange | Audiobook | The Lost Book of Adana Moreau               | false                       | false             | true                          | false        |
+      | Bibliotheca   | Ebook     | Avengers: Everybody Wants to Rule the World | true                        | true              | false                         | false        |
+      | Bibliotheca   | Audiobook | Highlights of the Perfect Sales Process     | false                       | false             | true                          | false        |
       #| Open Bookshelf (Open Access) | Ebook     |                                 | true                        | false             | false                         | true         |

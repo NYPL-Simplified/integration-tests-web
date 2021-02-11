@@ -152,12 +152,17 @@ public class BookSteps {
     }
 
     @Then("Following buttons are present:")
-    public void checkFollowingButtonsArePresent(List<BookLabelsVisibility> expectedValues) {
-        BookLabelsVisibility visibility = expectedValues.get(0);
+    public void checkFollowingButtonsArePresent(List<Map<String, String>> entries) {
+        Map<String, String> entry = entries.get(0);
+        BookLabelsVisibility visibility = new BookLabelsVisibility();
+        visibility.setDownloadAdobeACSM(Boolean.parseBoolean(entry.get("downloadAdobeACSM")));
+        visibility.setDownloadEPUB(Boolean.parseBoolean(entry.get("downloadEPUB")));
+        visibility.setReadyToListenOnSimplyEMessage(Boolean.parseBoolean(entry.get("readyToListenOnSimplyEMessage")));
+        visibility.setReadyToReadOnSimplyEMessage(Boolean.parseBoolean(entry.get("readyToReadOnSimplyEMessage")));
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(bookPage.isReadyToReadOnSimplyEMessagePresent(), visibility.isReadyToReadOnSimplyEMessage(), "Ready To Read On SimplyE Message" + " label/button is not in expected state");
         softAssert.assertEquals(bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB_ADOBE), visibility.isDownloadAdobeACSM(), "Download Adobe SCM" + " label/button is not in expected state");
-        softAssert.assertEquals(bookPage.isReadyToListenOnSimplyEMessagePresent(), visibility.isReadyToReadOnSimplyEMessage(), "Ready To Listen On SimplyE" + " label/button is not in expected state");
+        softAssert.assertEquals(bookPage.isReadyToListenOnSimplyEMessagePresent(), visibility.isReadyToListenOnSimplyEMessage(), "Ready To Listen On SimplyE" + " label/button is not in expected state");
         softAssert.assertEquals(bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB), visibility.isDownloadEPUB(), "Download EPUB" + " label/button is not in expected state");
         softAssert.assertAll();
     }
