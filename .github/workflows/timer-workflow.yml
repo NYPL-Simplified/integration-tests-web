@@ -44,7 +44,7 @@ jobs:
       env:
         ENVIRONMENT_URL_NAME: CPW_${{github.event.inputs.environment}}_LINK
       run:
-        mvn clean test -DstartUrl=${{secrets[env.ENVIRONMENT_URL_NAME]}} -Daquality.buildName="${{github.event.inputs.build_name}}" -Daquality.token=${{secrets.TRACKING_API_TOKEN}} -Daquality.suiteName="${{github.event.inputs.test_tag}}" -Daquality.environment="${{github.event.inputs.browser_name}}" -Dcredentials.LYRASIS.${{secrets.BookCard}}=${{secrets.BookPin}} -Dcredentials.LYRASIS.${{secrets.BookCardLyrasis2}}=${{secrets.BookPinLyrasis2}} -Dcredentials."The New York Public Library".${{secrets.BookCardNYPL}}=${{secrets.BookPinNYPL}} -DremoteConnectionUrl=${{secrets.remoteConnectionUrl}} -DbrowserName=${{github.event.inputs.browser_name}} -Dcucumber.options="--tags '(${{github.event.inputs.test_tag}}) and @${{github.event.inputs.browser_type}}'" -Denvironment=${{github.event.inputs.environment}}
+        mvn clean test -DstartUrl=${{secrets[env.ENVIRONMENT_URL_NAME]}} -Daquality.buildName="${{github.event.inputs.build_name}}" -Daquality.token=${{secrets.TRACKING_API_TOKEN}} -Daquality.suiteName="${{github.event.inputs.test_tag}}" -Daquality.environment="${{github.event.inputs.browser_name}}" -Dcredentials.LYRASIS.${{secrets.BookCard}}=${{secrets.BookPin}} -Dcredentials."The New York Public Library".${{secrets.BookCardNYPL}}=${{secrets.BookPinNYPL}} -DremoteConnectionUrl=${{secrets.remoteConnectionUrl}} -DbrowserName=${{github.event.inputs.browser_name}} -Dcucumber.options="--tags '(${{github.event.inputs.test_tag}}) and @${{github.event.inputs.browser_type}}'" -Denvironment=${{github.event.inputs.environment}}
     - name: Generate Allure Report
       uses: afiore/action-allure-report@v0.1.0
       if: success() || failure()
