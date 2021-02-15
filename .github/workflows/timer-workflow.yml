@@ -6,28 +6,6 @@ name: Test Run
 on:
   schedule:
     - cron:  '0 23 * * 0-4'
-    branches: [ main ]
-    inputs:
-      test_tag:
-        description: 'Tags to run'
-        required: true
-        default: '(@tier1 or @tier2 or @tier3)'
-      build_name:
-        description: 'build name of given application'
-        required: false
-        default: 'CPW'
-      browser_name:
-        description: 'Browser name'
-        required: true
-        default: 'chrome'
-      browser_type:
-        description: 'Browser type'
-        required: true
-        default: 'desktop'
-      environment:
-        description: 'Environment name'
-        required: false
-        default: 'beta'
 
 jobs:
   build:
