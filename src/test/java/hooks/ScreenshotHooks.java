@@ -5,7 +5,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
 
 public class ScreenshotHooks {
-    @After(order = 2)
+    @After(order = 4)
     public void takeScreenshot(Scenario scenario) {
         scenario.attach(AqualityServices.getBrowser().getScreenshot(), "image/png", "screenshot.png");
     }
