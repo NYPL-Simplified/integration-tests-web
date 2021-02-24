@@ -51,7 +51,7 @@ Feature: Catalog Navigation
   Scenario: Browse Lanes/Categories
     When I open 'Young Adult Fiction' category
     Then Current category name is 'Young Adult Fiction'
-      And Count of books in first lane is more than 2
+      And Count of books in first lane is more than 1
       And Following subcategories are present:
         | Fantasy                 |
         | Contemporary Fiction    |
