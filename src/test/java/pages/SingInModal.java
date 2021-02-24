@@ -19,7 +19,7 @@ public class SingInModal extends Form {
     }
 
     public void setPassword(String password) {
-        passwordTxb.sendKeys(password);
+        passwordTxb.typeSecret(password);
     }
 
     public void applyLogin() {

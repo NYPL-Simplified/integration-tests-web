@@ -142,15 +142,6 @@ public class BookSteps {
                 "The book was not downloaded successfully");
     }
 
-    private void saveBookInContext(String key, BookInfo bookName) {
-        List<BookInfo> listOfLibraries = context.containsKey(key)
-                ? context.get(key)
-                : new ArrayList<>();
-
-        listOfLibraries.add(bookName);
-        context.add(key, listOfLibraries);
-    }
-
     @Then("Following buttons are present:")
     public void checkFollowingButtonsArePresent(List<Map<String, String>> entries) {
         Map<String, String> entry = entries.get(0);
@@ -165,5 +156,19 @@ public class BookSteps {
         softAssert.assertEquals(bookPage.isReadyToListenOnSimplyEMessagePresent(), visibility.isReadyToListenOnSimplyEMessage(), "Ready To Listen On SimplyE" + " label/button is not in expected state");
         softAssert.assertEquals(bookPage.isActionButtonVisible(BookActionButtons.DOWNLOAD_EPUB), visibility.isDownloadEPUB(), "Download EPUB" + " label/button is not in expected state");
         softAssert.assertAll();
+    }
+
+    @Then("Book is not available for loan")
+    public void bookIsNotAvailableForLoan() {
+        Assert.assertFalse(bookPage.isActionButtonVisible(BookActionButtons.RESERVE) || bookPage.isActionButtonVisible(BookActionButtons.BORROW), "Book is available for loan/reserve");
+    }
+
+    private void saveBookInContext(String key, BookInfo bookName) {
+        List<BookInfo> listOfLibraries = context.containsKey(key)
+                ? context.get(key)
+                : new ArrayList<>();
+
+        listOfLibraries.add(bookName);
+        context.add(key, listOfLibraries);
     }
 }

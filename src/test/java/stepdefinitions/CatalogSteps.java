@@ -119,7 +119,7 @@ public class CatalogSteps {
     @And("Count of books in first lane is more than {int}")
     public void countOfBooksInFirstLaneIsUpTo(int countOfBooks) {
         int actualBooksCount = catalogPage.getListOfAllBooksNamesInFirstLane().size();
-        Assert.assertTrue(countOfBooks < actualBooksCount,
+        Assert.assertTrue(countOfBooks <= actualBooksCount,
                 String.format("Count of books is smaller than %d. Actual count - %d", countOfBooks, actualBooksCount));
     }
 
