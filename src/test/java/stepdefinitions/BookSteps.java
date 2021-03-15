@@ -65,7 +65,7 @@ public class BookSteps {
 
     @Then("Check that {} book button appeared")
     public void checkThatBookActionButtonAppeared(BookActionButtons action) {
-        Assert.assertTrue(bookPage.isActionButtonVisible(action), "Download book button appeared");
+        Assert.assertTrue(bookPage.isActionButtonVisible(action), action.getAction() + " button appeared");
     }
 
     @Then("Check that download book button is present")
