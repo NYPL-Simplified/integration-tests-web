@@ -4,6 +4,7 @@ import aquality.selenium.browser.AqualityServices;
 import com.google.inject.Inject;
 import constants.context.ContextLibrariesKeys;
 import constants.pages.BookActionButtons;
+import constants.pages.BookConstants;
 import constants.pages.BookTypeFormatMatch;
 import constants.pages.StringConstants;
 import framework.utilities.FileUtils;
@@ -21,6 +22,7 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import pages.BookPage;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +65,7 @@ public class BookSteps {
 
     @Then("Check that {} book button appeared")
     public void checkThatBookActionButtonAppeared(BookActionButtons action) {
-        Assert.assertTrue(bookPage.isActionButtonVisible(action), "Download book button appeared");
+        Assert.assertTrue(bookPage.isActionButtonVisible(action), action.getAction() + " button appeared");
     }
 
     @Then("Check that download book button is present")
@@ -74,7 +76,7 @@ public class BookSteps {
     @Then("Check the book was downloaded successfully")
     public void checkThatTheBookWasDownloadedSuccessfully() {
         String downloadBookName = bookPage.getDownloadFileName();
-        Assert.assertTrue(FileUtils.isFileContainingNameDownloaded(downloadBookName),
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> FileUtils.isFileContainingNameDownloaded(downloadBookName), Duration.ofSeconds(BookConstants.BOOK_DOWNLOAD.getTimeout())),
                 "The book was not downloaded successfully");
     }
 
@@ -134,12 +136,7 @@ public class BookSteps {
     @Then("Check the book {string} was downloaded successfully")
     public void checkTheBookBookInfoWasDownloadedSuccessfully(String bookInfoKey) {
         BookInfo book = context.get(bookInfoKey);
-        Assert.assertTrue(FileUtils.isFileContainingNameDownloaded(Arrays.stream(book.getTitle().split(StringUtils.SPACE))
-                        .map(String::toLowerCase)
-                        .collect(Collectors.joining(StringConstants.FILE_NAME_DELIMITER))
-                        + StringConstants.FILE_EXTENSION_DELIMITER
-                        + BookTypeFormatMatch.EPUB.getFileFormat()),
-                "The book was not downloaded successfully");
+        Assert.assertTrue(AqualityServices.getConditionalWait().waitFor(() -> isFileContainingExtensionDownloaded(book, BookTypeFormatMatch.EPUB) || isFileContainingExtensionDownloaded(book, BookTypeFormatMatch.PDF), Duration.ofSeconds(BookConstants.BOOK_DOWNLOAD.getTimeout())), "The book was not downloaded successfully");
     }
 
     @Then("Following buttons are present:")
@@ -170,5 +167,9 @@ public class BookSteps {
 
         listOfLibraries.add(bookName);
         context.add(key, listOfLibraries);
+    }
+
+    private boolean isFileContainingExtensionDownloaded(BookInfo book, BookTypeFormatMatch format) {
+        return FileUtils.isFileContainingNameDownloaded(Arrays.stream(book.getTitle().split(StringUtils.SPACE)).map(String::toLowerCase).collect(Collectors.joining(StringConstants.FILE_NAME_DELIMITER)) + StringConstants.FILE_EXTENSION_DELIMITER + format.getFileFormat());
     }
 }
