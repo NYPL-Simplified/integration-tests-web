@@ -18,8 +18,7 @@ public final class FileUtils {
     }
 
     private static boolean isFileContainingNameDownloadedRemote(String fileName) {
-        return AqualityServices.getConditionalWait().waitFor(driver ->
-                (boolean) AqualityServices.getBrowser().executeScript(String.format("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"%1$s\"}}", fileName)), Duration.ofSeconds(BookConstants.BOOK_DOWNLOAD.getTimeout()));
+        return (boolean) AqualityServices.getBrowser().executeScript(String.format("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"%1$s\"}}", fileName));
     }
 
     private static boolean isFileContainingNameDownloadedLocal(String fileName) {

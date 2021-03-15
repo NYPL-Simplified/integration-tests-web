@@ -1,6 +1,7 @@
 package constants.pages;
 
 public enum BookTypeFormatMatch {
+    PDF("eBook", "pdf"),
     EPUB("eBook", "epub");
 
     private final String type;
